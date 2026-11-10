@@ -1,0 +1,1819 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>XeonFlasher — The #1 Trusted Site for Flash USDT &amp; USDC</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Outfit:wght@600;700;800&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com/3.4.17"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+            display: ['Outfit', 'Plus Jakarta Sans', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    };
+  </script>
+  <style>
+    :root {
+      --purple-core: #9333EA;
+      --purple-bright: #C084FC;
+    }
+
+    body {
+      background-color: #030206;
+      background-image:
+        radial-gradient(ellipse 85% 55% at 50% -12%, rgba(147, 51, 234, 0.28), transparent 68%),
+        radial-gradient(ellipse 55% 45% at 88% 28%, rgba(109, 40, 217, 0.18), transparent 65%),
+        radial-gradient(ellipse 60% 50% at 12% 78%, rgba(168, 85, 247, 0.13), transparent 65%),
+        linear-gradient(180deg, #030206 0%, #090414 48%, #030206 100%);
+      background-attachment: fixed;
+      color: #f6f4f9;
+      font-family: 'Inter', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .bg-grid-pattern {
+      background-image:
+        linear-gradient(to right, rgba(168, 85, 247, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(168, 85, 247, 0.04) 1px, transparent 1px);
+      background-size: 48px 48px;
+    }
+
+    .surface-card {
+      background: linear-gradient(160deg, rgba(19, 11, 33, 0.92) 0%, rgba(6, 3, 12, 0.97) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.22);
+      box-shadow: 0 24px 60px -20px rgba(0, 0, 0, 0.92);
+      transition: border-color 200ms ease, transform 200ms ease;
+    }
+    .surface-card:hover {
+      border-color: rgba(192, 132, 252, 0.38);
+    }
+
+    .wallet-pill {
+      background: linear-gradient(160deg, rgba(24, 13, 42, 0.85) 0%, rgba(9, 5, 18, 0.95) 100%);
+      border: 1px solid rgba(168, 85, 247, 0.20);
+      transition: all 180ms ease;
+    }
+    .wallet-pill:hover {
+      border-color: rgba(192, 132, 252, 0.50);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 25px -10px rgba(147, 51, 234, 0.35);
+    }
+
+    /* Stationary dark-purple pedestal backdrop (Pure Purple Backlight) */
+    .coin-stage-backdrop {
+      background:
+        radial-gradient(circle at 36% 50%, rgba(168, 85, 247, 0.28) 0%, transparent 54%),
+        radial-gradient(circle at 66% 50%, rgba(147, 51, 234, 0.26) 0%, transparent 54%),
+        radial-gradient(circle at 50% 50%, rgba(126, 34, 206, 0.22) 0%, rgba(15, 7, 29, 0.72) 56%, #040208 86%);
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      box-shadow: 0 28px 70px -20px rgba(0, 0, 0, 0.95), inset 0 1px 0 0 rgba(192, 132, 252, 0.16);
+    }
+
+    @keyframes floatUsdt {
+      0%, 100% {
+        transform: translateY(4px);
+        filter: drop-shadow(0 26px 32px rgba(0, 0, 0, 0.92)) drop-shadow(0 0 26px rgba(168, 85, 247, 0.30));
+      }
+      50% {
+        transform: translateY(-10px);
+        filter: drop-shadow(0 36px 44px rgba(0, 0, 0, 0.96)) drop-shadow(0 0 36px rgba(192, 132, 252, 0.40));
+      }
+    }
+    @keyframes floatUsdc {
+      0%, 100% {
+        transform: translateY(-6px);
+        filter: drop-shadow(0 26px 32px rgba(0, 0, 0, 0.92)) drop-shadow(0 0 26px rgba(147, 51, 234, 0.30));
+      }
+      50% {
+        transform: translateY(8px);
+        filter: drop-shadow(0 36px 44px rgba(0, 0, 0, 0.96)) drop-shadow(0 0 36px rgba(192, 132, 252, 0.38));
+      }
+    }
+    .coin-float-usdt {
+      animation: floatUsdt 5.2s ease-in-out infinite;
+      will-change: transform, filter;
+    }
+    .coin-float-usdc {
+      animation: floatUsdc 5.2s ease-in-out infinite;
+      will-change: transform, filter;
+    }
+
+    @keyframes viewFadeIn {
+      0% { opacity: 0; transform: translateY(8px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .view-transition {
+      animation: viewFadeIn 240ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes modalPopIn {
+      0% { opacity: 0; transform: scale(0.95) translateY(10px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+    .modal-pop {
+      animation: modalPopIn 220ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes valueFade {
+      0% { opacity: 0.35; transform: translateY(2px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .value-animate {
+      animation: valueFade 180ms ease-out forwards;
+    }
+
+    @keyframes progressSweep {
+      0% { width: 8%; }
+      50% { width: 72%; }
+      100% { width: 100%; }
+    }
+    .animate-progress-bar {
+      animation: progressSweep 2.45s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+
+    .pkg-card {
+      background: linear-gradient(180deg, rgba(14, 9, 24, 0.92) 0%, rgba(7, 4, 13, 0.96) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      transition: all 180ms ease;
+    }
+    .pkg-card:hover {
+      border-color: rgba(168, 85, 247, 0.48);
+      transform: translateY(-1px);
+    }
+    .pkg-card.active {
+      background: linear-gradient(155deg, rgba(147, 51, 234, 0.24) 0%, rgba(12, 7, 22, 0.96) 100%);
+      border: 1px solid #A855F7;
+      box-shadow: inset 0 1px 0 0 rgba(216, 180, 254, 0.28);
+    }
+
+    .custom-dropdown {
+      background: linear-gradient(180deg, #090512 0%, #05030a 100%);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      transition: border-color 160ms ease;
+    }
+    .custom-dropdown:hover {
+      border-color: rgba(168, 85, 247, 0.45);
+    }
+    .custom-dropdown.open {
+      border-color: #A855F7;
+    }
+
+    .btn-purple-grad {
+      background: linear-gradient(135deg, #9333EA 0%, #581C87 100%);
+      border: 1px solid rgba(216, 180, 254, 0.35);
+      transition: all 180ms ease;
+    }
+    .btn-purple-grad:hover:not(:disabled) {
+      background: linear-gradient(135deg, #A855F7 0%, #6B21A8 100%);
+      transform: translateY(-1px);
+    }
+    .btn-purple-grad:disabled {
+      background: linear-gradient(135deg, rgba(24, 16, 36, 0.85) 0%, rgba(13, 9, 20, 0.92) 100%);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      color: rgba(161, 161, 170, 0.50);
+      cursor: not-allowed;
+      box-shadow: none;
+      transform: none;
+    }
+
+    .txid-link-pill {
+      background: linear-gradient(135deg, rgba(147, 51, 234, 0.18) 0%, rgba(23, 11, 43, 0.92) 100%);
+      border: 1px solid rgba(192, 132, 252, 0.40);
+      transition: all 160ms ease;
+    }
+    .txid-link-pill:hover {
+      background: linear-gradient(135deg, rgba(168, 85, 247, 0.28) 0%, rgba(35, 16, 66, 0.98) 100%);
+      border-color: #E9D5FF;
+      box-shadow: 0 0 18px rgba(168, 85, 247, 0.35);
+      transform: translateY(-1px);
+    }
+  </style>
+</head>
+<body class="min-h-screen flex flex-col bg-grid-pattern selection:bg-[#9333EA]/35 selection:text-white">
+
+  <!-- 1. NAVIGATION BAR -->
+  <header class="sticky top-0 z-40 bg-[#030206]/85 backdrop-blur-xl border-b border-white/[0.07]">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+      
+      <button id="brandHomeBtn" type="button" class="flex items-center gap-3 text-left focus:outline-none group">
+        <svg class="w-10 h-10 transition-transform duration-200 group-hover:scale-105" viewBox="0 0 44 44" fill="none" aria-label="XeonFlasher Brand Emblem">
+          <defs>
+            <linearGradient id="xfShieldTop" x1="6" y1="4" x2="38" y2="40" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#E9D5FF" />
+              <stop offset="45%" stop-color="#A855F7" />
+              <stop offset="100%" stop-color="#3B0764" />
+            </linearGradient>
+            <linearGradient id="xfPrismLeft" x1="6" y1="8" x2="22" y2="40" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#C084FC" stop-opacity="0.9" />
+              <stop offset="100%" stop-color="#581C87" stop-opacity="0.95" />
+            </linearGradient>
+            <linearGradient id="xfPrismRight" x1="22" y1="8" x2="38" y2="40" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#7E22CE" />
+              <stop offset="100%" stop-color="#2E1065" />
+            </linearGradient>
+            <linearGradient id="xfBoltGrad" x1="14" y1="10" x2="30" y2="34" gradientUnits="userSpaceOnUse">
+              <stop offset="0%" stop-color="#FFFFFF" />
+              <stop offset="65%" stop-color="#F3E8FF" />
+              <stop offset="100%" stop-color="#C084FC" />
+            </linearGradient>
+          </defs>
+          <polygon points="22,2 39,11.5 39,32.5 22,42 5,32.5 5,11.5" fill="#07030F" stroke="url(#xfShieldTop)" stroke-width="1.5" />
+          <polygon points="22,4.5 22,22 7.5,30.5 7.5,13" fill="url(#xfPrismLeft)" opacity="0.3" />
+          <polygon points="22,4.5 36.5,13 36.5,30.5 22,22" fill="url(#xfPrismRight)" opacity="0.48" />
+          <polygon points="22,7.5 34,14.5 34,29.5 22,36.5 10,29.5 10,14.5" fill="#090414" stroke="#C084FC" stroke-opacity="0.38" stroke-width="1" />
+          <path d="M13.5 15.5L19 22L13.5 28.5" stroke="#C084FC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.88" />
+          <path d="M30.5 15.5L25 22L30.5 28.5" stroke="#C084FC" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.88" />
+          <path d="M24.2 11L16.5 22.2H22.2L19.8 33L27.5 21.8H21.8L24.2 11Z" fill="url(#xfBoltGrad)" />
+        </svg>
+        <span class="font-display font-extrabold tracking-tight text-lg sm:text-xl text-white">
+          Xeon<span class="bg-gradient-to-r from-[#D8B4FE] via-[#A855F7] to-[#7E22CE] bg-clip-text text-transparent">Flasher</span>
+        </span>
+      </button>
+
+      <nav class="flex items-center gap-5 sm:gap-8" aria-label="Primary Navigation">
+        <button
+          id="navHomeBtn"
+          type="button"
+          class="text-sm font-semibold text-white border-b-2 border-[#A855F7] py-5 transition-colors focus:outline-none"
+        >
+          Home
+        </button>
+        <button
+          id="navBuyBtn"
+          type="button"
+          class="text-sm font-medium text-zinc-400 hover:text-white border-b-2 border-transparent py-5 transition-colors focus:outline-none"
+        >
+          Buy Flash USDT / USDC
+        </button>
+        <a
+          id="navSupportBtn"
+          href="https://t.me/bebo3"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-sm font-medium text-zinc-400 hover:text-[#C084FC] border-b-2 border-transparent py-5 transition-colors focus:outline-none"
+        >
+          Support
+        </a>
+      </nav>
+
+    </div>
+  </header>
+
+  <!-- MAIN SPA CONTAINER -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+
+    <!-- ========================================== -->
+    <!-- VIEW 1: HOME VIEW (Default)                -->
+    <!-- ========================================== -->
+    <section id="homeView" class="view-transition space-y-16">
+      
+      <!-- Hero Section (2-Column Layout) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
+        
+        <!-- Left 7 Cols -->
+        <div class="lg:col-span-7 space-y-6">
+          <h1 class="font-display text-4xl sm:text-5xl lg:text-[56px] font-extrabold tracking-tight text-white leading-[1.08]">
+            Instant Multi-Chain
+            <span class="block bg-gradient-to-r from-[#E9D5FF] via-[#A855F7] to-[#7E22CE] bg-clip-text text-transparent">
+              Flash USDT &amp; USDC.
+            </span>
+          </h1>
+
+          <p class="text-sm sm:text-base text-zinc-400 leading-relaxed max-w-xl">
+            XeonFlasher sends Flash USDT and Flash USDC directly to your wallet across Ethereum (ERC20), BNB Smart Chain (BEP20), Tron (TRC20), Polygon, Arbitrum, and Base. Choose your visibility from 1 hour up to 30 days with instant delivery and no wallet connection needed.
+          </p>
+
+          <div class="grid grid-cols-3 gap-3.5 pt-2 max-w-lg">
+            <div class="surface-card rounded-2xl p-4">
+              <div class="text-xs text-zinc-400">Package Range</div>
+              <div class="font-mono text-base sm:text-lg font-bold text-white mt-1">50K – 1M</div>
+            </div>
+            <div class="surface-card rounded-2xl p-4">
+              <div class="text-xs text-zinc-400">Supported Chains</div>
+              <div class="font-mono text-base sm:text-lg font-bold text-[#C084FC] mt-1">6 Networks</div>
+            </div>
+            <div class="surface-card rounded-2xl p-4">
+              <div class="text-xs text-zinc-400">Delivery Time</div>
+              <div class="font-mono text-base sm:text-lg font-bold text-[#C084FC] mt-1">Instant</div>
+            </div>
+          </div>
+
+          <div class="pt-2">
+            <button
+              id="heroGoToBuyBtn"
+              type="button"
+              class="btn-purple-grad rounded-xl text-white font-display font-bold text-sm sm:text-base px-8 py-4 inline-flex items-center gap-2.5 shadow-lg"
+            >
+              <span>Buy Flash USDT / USDC</span>
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right 5 Cols: Stationary Purple-Lit Stage + Enlarged Dual 3D Coins at Exact Position -->
+        <div class="lg:col-span-5">
+          <div class="coin-stage-backdrop rounded-3xl p-2 sm:p-3 flex items-center justify-center relative overflow-hidden min-h-[390px] sm:min-h-[430px]">
+            <svg class="w-full h-auto select-none pointer-events-none overflow-visible" viewBox="48 24 560 352" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="3D USDT and 3D USDC Coins">
+              <defs>
+                <linearGradient id="coinEdge3D" x1="60" y1="340" x2="350" y2="60" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#0E1312" />
+                  <stop offset="25%" stop-color="#3E4C48" />
+                  <stop offset="50%" stop-color="#18201E" />
+                  <stop offset="78%" stop-color="#6B7C77" />
+                  <stop offset="100%" stop-color="#121816" />
+                </linearGradient>
+                <linearGradient id="outerBezel" x1="50" y1="40" x2="340" y2="360" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#DCE4EC" />
+                  <stop offset="28%" stop-color="#526068" />
+                  <stop offset="55%" stop-color="#1E252B" />
+                  <stop offset="82%" stop-color="#8C9BA5" />
+                  <stop offset="100%" stop-color="#273038" />
+                </linearGradient>
+                <radialGradient id="emeraldCore" cx="42%" cy="35%" r="65%">
+                  <stop offset="0%" stop-color="#4ADE80" />
+                  <stop offset="28%" stop-color="#26A17B" />
+                  <stop offset="72%" stop-color="#0F543F" />
+                  <stop offset="100%" stop-color="#06261C" />
+                </radialGradient>
+                <radialGradient id="usdcBlueCore" cx="42%" cy="35%" r="65%">
+                  <stop offset="0%" stop-color="#60A5FA" />
+                  <stop offset="30%" stop-color="#2775CA" />
+                  <stop offset="75%" stop-color="#154580" />
+                  <stop offset="100%" stop-color="#0A2246" />
+                </radialGradient>
+                <linearGradient id="gunmetalRing" x1="90" y1="90" x2="310" y2="310" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#4B585E" />
+                  <stop offset="50%" stop-color="#141B1F" />
+                  <stop offset="100%" stop-color="#374249" />
+                </linearGradient>
+                <linearGradient id="silverMetal" x1="130" y1="110" x2="265" y2="290" gradientUnits="userSpaceOnUse">
+                  <stop offset="0%" stop-color="#FFFFFF" />
+                  <stop offset="45%" stop-color="#CBD5E1" />
+                  <stop offset="75%" stop-color="#64748B" />
+                  <stop offset="100%" stop-color="#E2E8F0" />
+                </linearGradient>
+                <filter id="emblemShadow" x="-15%" y="-15%" width="130%" height="130%">
+                  <feDropShadow dx="4" dy="7" stdDeviation="4" flood-color="#030208" flood-opacity="0.88" />
+                </filter>
+              </defs>
+
+              <!-- COIN 2 (RIGHT / BACK): 3D BLUE USDC COIN (Same Size, 80% Uncovered) -->
+              <g class="coin-float-usdc">
+                <g transform="translate(238, 0)">
+                  <g transform="translate(200, 200) rotate(-15) scale(0.90, 0.98) translate(-200, -200)">
+                    <ellipse cx="214" cy="208" rx="156" ry="156" fill="url(#coinEdge3D)" />
+                    <ellipse cx="210" cy="205" rx="156" ry="156" fill="none" stroke="#94A3B8" stroke-width="5" stroke-dasharray="3 5" opacity="0.35" />
+                    <ellipse cx="206" cy="202" rx="156" ry="156" fill="none" stroke="#090D16" stroke-width="4" stroke-dasharray="3 5" opacity="0.7" />
+                    <circle cx="196" cy="194" r="156" fill="url(#outerBezel)" stroke="#E2E8F0" stroke-width="1.5" stroke-opacity="0.45" />
+                    <circle cx="196" cy="194" r="138" fill="url(#usdcBlueCore)" stroke="#09111E" stroke-width="4" />
+                    <circle cx="196" cy="194" r="122" fill="url(#gunmetalRing)" stroke="#64748B" stroke-width="1.5" stroke-opacity="0.4" />
+                    <circle cx="196" cy="194" r="113" fill="none" stroke="#60A5FA" stroke-width="4" stroke-dasharray="2 6" opacity="0.38" />
+                    <circle cx="196" cy="194" r="113" fill="none" stroke="#0B1320" stroke-width="5" stroke-dasharray="40 28" />
+                    <circle cx="196" cy="194" r="102" fill="url(#usdcBlueCore)" stroke="#0E192D" stroke-width="3" />
+                    <path d="M162 114 A86 86 0 0 0 162 274" fill="none" stroke="url(#silverMetal)" stroke-width="10" stroke-linecap="round" filter="url(#emblemShadow)" />
+                    <path d="M230 114 A86 86 0 0 1 230 274" fill="none" stroke="url(#silverMetal)" stroke-width="10" stroke-linecap="round" filter="url(#emblemShadow)" />
+                    <path d="M115 125 L275 265" stroke="#BAE6FD" stroke-width="38" stroke-linecap="round" opacity="0.09" />
+                    <g filter="url(#emblemShadow)">
+                      <path d="M204 236V255H188V236C167 234 152 223 150 203H170C172 214 180 221 196 221C212 221 220 214 220 205C220 195 212 190 191 185C166 179 153 170 153 150C153 132 167 120 188 117V98H204V117C223 120 236 131 238 148H218C216 138 209 132 195 132C181 132 172 138 172 148C172 157 180 162 201 167C227 172 240 183 240 203C240 222 226 234 204 236Z" fill="url(#silverMetal)" />
+                    </g>
+                  </g>
+                </g>
+              </g>
+
+              <!-- COIN 1 (LEFT / FRONT): 3D GREEN TETHER USDT COIN (Same Size, 100% Shown) -->
+              <g class="coin-float-usdt">
+                <g transform="translate(8, 0)">
+                  <g transform="translate(200, 200) rotate(-15) scale(0.90, 0.98) translate(-200, -200)">
+                    <ellipse cx="214" cy="208" rx="156" ry="156" fill="url(#coinEdge3D)" />
+                    <ellipse cx="210" cy="205" rx="156" ry="156" fill="none" stroke="#94A3B8" stroke-width="5" stroke-dasharray="3 5" opacity="0.35" />
+                    <ellipse cx="206" cy="202" rx="156" ry="156" fill="none" stroke="#090D0C" stroke-width="4" stroke-dasharray="3 5" opacity="0.7" />
+                    <circle cx="196" cy="194" r="156" fill="url(#outerBezel)" stroke="#E2E8F0" stroke-width="1.5" stroke-opacity="0.45" />
+                    <circle cx="196" cy="194" r="138" fill="url(#emeraldCore)" stroke="#091310" stroke-width="4" />
+                    <circle cx="196" cy="194" r="122" fill="url(#gunmetalRing)" stroke="#64748B" stroke-width="1.5" stroke-opacity="0.4" />
+                    <circle cx="196" cy="194" r="113" fill="none" stroke="#34D399" stroke-width="4" stroke-dasharray="2 6" opacity="0.35" />
+                    <circle cx="196" cy="194" r="113" fill="none" stroke="#0B1311" stroke-width="5" stroke-dasharray="40 28" />
+                    <circle cx="196" cy="194" r="102" fill="url(#emeraldCore)" stroke="#111C18" stroke-width="3" />
+                    <circle cx="196" cy="194" r="92" fill="none" stroke="url(#silverMetal)" stroke-width="6.5" stroke-dasharray="195 16 32 16 195 18" stroke-linecap="round" filter="url(#emblemShadow)" />
+                    <path d="M115 125 L275 265" stroke="#A7F3D0" stroke-width="38" stroke-linecap="round" opacity="0.08" />
+                    <g filter="url(#emblemShadow)">
+                      <path d="M142 136 H250 L244 162 H211 V182 H181 V162 H148 L142 136Z" fill="url(#silverMetal)" />
+                      <ellipse cx="196" cy="191" rx="58" ry="13.5" fill="none" stroke="url(#silverMetal)" stroke-width="7.5" />
+                      <rect x="181" y="158" width="30" height="29" rx="2" fill="url(#silverMetal)" />
+                      <path d="M181 203 H211 L207 262 H177 L181 203Z" fill="url(#silverMetal)" />
+                    </g>
+                  </g>
+                </g>
+              </g>
+
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- ========================================================================= -->
+      <!-- UNIVERSAL WALLET & EXCHANGE COMPATIBILITY SHOWCASE STRIP                  -->
+      <!-- Real Official Logos, No Square Icon Boxes, Prominent Size                 -->
+      <!-- ========================================================================= -->
+      <div class="surface-card rounded-3xl p-6 sm:p-8 relative overflow-hidden">
+        <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(147,51,234,0.13)_0%,transparent_70%)]"></div>
+
+        <div class="relative z-10 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-6">
+          <div class="space-y-1.5 max-w-md">
+            <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#170b2b] border border-[#A855F7]/35">
+              <span class="w-2 h-2 rounded-full bg-[#C084FC] animate-pulse"></span>
+              <span class="font-mono text-[11px] font-semibold uppercase tracking-wider text-[#E9D5FF]">100% Wallet Compatibility</span>
+            </div>
+            <h2 class="font-display text-xl sm:text-2xl font-extrabold tracking-tight text-white">
+              Works on <span class="bg-gradient-to-r from-[#E9D5FF] via-[#C084FC] to-[#A855F7] bg-clip-text text-transparent">All Wallets &amp; Exchanges</span>
+            </h2>
+            <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed">
+              Send Flash USDT &amp; Flash USDC straight to any personal wallet or exchange address with instant balance visibility.
+            </p>
+          </div>
+
+          <!-- Supported Wallet & Exchange Pills (Standalone Official Logos — No Square Box Behind Them) -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3.5 flex-1 max-w-2xl">
+            
+            <!-- MetaMask (Official MetaMask Fox Logo) -->
+            <div class="wallet-pill rounded-2xl px-4 py-3.5 flex items-center gap-3.5">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/3/36/MetaMask_Fox.svg"
+                onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/@thesvg/icons/icons/metamask.svg';"
+                alt="MetaMask Logo"
+                class="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0 select-none"
+              />
+              <div>
+                <div class="font-display font-bold text-sm text-white">MetaMask</div>
+                <div class="text-xs text-zinc-400">Supported</div>
+              </div>
+            </div>
+
+            <!-- Trust Wallet (Official Trust Wallet Logo) -->
+            <div class="wallet-pill rounded-2xl px-4 py-3.5 flex items-center gap-3.5">
+              <img
+                src="https://thesvg.org/icons/trust-wallet/default.svg"
+                onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/@thesvg/icons/icons/trust-wallet.svg';"
+                alt="Trust Wallet Logo"
+                class="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0 select-none"
+              />
+              <div>
+                <div class="font-display font-bold text-sm text-white">Trust Wallet</div>
+                <div class="text-xs text-zinc-400">Supported</div>
+              </div>
+            </div>
+
+            <!-- Exodus (Official Exodus Logo) -->
+            <div class="wallet-pill rounded-2xl px-4 py-3.5 flex items-center gap-3.5">
+              <img
+                src="https://upload.wikimedia.org/wikipedia/commons/1/17/Exodus_Wallet_Logo.png"
+                alt="Exodus Logo"
+                class="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0 select-none"
+              />
+              <div>
+                <div class="font-display font-bold text-sm text-white">Exodus</div>
+                <div class="text-xs text-zinc-400">Supported</div>
+              </div>
+            </div>
+
+            <!-- Binance (Official Binance Logo) -->
+            <div class="wallet-pill rounded-2xl px-4 py-3.5 flex items-center gap-3.5">
+              <img
+                src="https://thesvg.org/icons/binance/default.svg"
+                onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/@thesvg/icons/icons/binance.svg';"
+                alt="Binance Logo"
+                class="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0 select-none"
+              />
+              <div>
+                <div class="font-display font-bold text-sm text-white">Binance</div>
+                <div class="text-xs text-zinc-400">Supported</div>
+              </div>
+            </div>
+
+            <!-- Coinbase (Official Coinbase Logo) -->
+            <div class="wallet-pill rounded-2xl px-4 py-3.5 flex items-center gap-3.5">
+              <img
+                src="https://thesvg.org/icons/coinbase/default.svg"
+                onerror="this.onerror=null;this.src='https://cdn.jsdelivr.net/npm/@thesvg/icons/icons/coinbase.svg';"
+                alt="Coinbase Logo"
+                class="w-9 h-9 sm:w-10 sm:h-10 object-contain shrink-0 select-none"
+              />
+              <div>
+                <div class="font-display font-bold text-sm text-white">Coinbase</div>
+                <div class="text-xs text-zinc-400">Supported</div>
+              </div>
+            </div>
+
+            <!-- + All Other Wallets (Standalone Icon, No Square Box) -->
+            <div class="wallet-pill rounded-2xl px-4 py-3.5 flex items-center gap-3.5">
+              <svg class="w-9 h-9 sm:w-10 sm:h-10 shrink-0" viewBox="0 0 40 40" fill="none">
+                <defs>
+                  <linearGradient id="allWalletsGrad" x1="4" y1="6" x2="36" y2="34" gradientUnits="userSpaceOnUse">
+                    <stop offset="0%" stop-color="#E9D5FF"/>
+                    <stop offset="50%" stop-color="#A855F7"/>
+                    <stop offset="100%" stop-color="#6B21A8"/>
+                  </linearGradient>
+                </defs>
+                <path d="M6 12C6 9.23858 8.23858 7 11 7H29C31.7614 7 34 9.23858 34 12V28C34 30.7614 31.7614 33 29 33H11C8.23858 33 6 30.7614 6 28V12Z" stroke="url(#allWalletsGrad)" stroke-width="2.6"/>
+                <path d="M25 16H34V24H25C22.7909 24 21 22.2091 21 20C21 17.7909 22.7909 16 25 16Z" fill="url(#allWalletsGrad)" fill-opacity="0.25" stroke="url(#allWalletsGrad)" stroke-width="2.4"/>
+                <circle cx="25.5" cy="20" r="1.8" fill="#FFFFFF"/>
+              </svg>
+              <div>
+                <div class="font-display font-bold text-sm text-[#E9D5FF]">+ All Wallets</div>
+                <div class="text-xs text-zinc-400">Any Web3 / CEX</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- Trust Section -->
+      <div>
+        <div class="mb-8">
+          <h2 class="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-white">
+            The #1 Trusted Site for <span class="bg-gradient-to-r from-[#E9D5FF] via-[#C084FC] to-[#9333EA] bg-clip-text text-transparent">Flash USDT &amp; USDC</span>
+          </h2>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="surface-card rounded-2xl p-6 sm:p-7">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-[#9333EA]/28 to-[#0e071a] border border-[#A855F7]/38 flex items-center justify-center text-[#C084FC] mb-5">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="font-display text-lg font-bold tracking-tight text-white">Secure Escrow</h3>
+            <p class="mt-2.5 text-sm text-zinc-400 leading-relaxed">
+              Every order is protected by automatic verification. Your wallet address is checked before payment so your Flash USDT or USDC arrives safely every time.
+            </p>
+          </div>
+
+          <div class="surface-card rounded-2xl p-6 sm:p-7">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-[#9333EA]/28 to-[#0e071a] border border-[#A855F7]/38 flex items-center justify-center text-[#C084FC] mb-5">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <h3 class="font-display text-lg font-bold tracking-tight text-white">Instant Delivery</h3>
+            <p class="mt-2.5 text-sm text-zinc-400 leading-relaxed">
+              As soon as your payment is confirmed on the network, XeonFlasher instantly sends your Flash USDT or Flash USDC straight to your wallet.
+            </p>
+          </div>
+
+          <div class="surface-card rounded-2xl p-6 sm:p-7">
+            <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-[#9333EA]/28 to-[#0e071a] border border-[#A855F7]/38 flex items-center justify-center text-[#C084FC] mb-5">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 18v-6a9 9 0 0 1 18 0v6"></path>
+                <path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"></path>
+              </svg>
+            </div>
+            <h3 class="font-display text-lg font-bold tracking-tight text-white">24/7 Support</h3>
+            <p class="mt-2.5 text-sm text-zinc-400 leading-relaxed">
+              Our support team is online 24/7 to help you with any network, visibility option, or large order whenever you need.
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================= -->
+    <!-- VIEW 2: BUY FLASH USDT / USDC VIEW                        -->
+    <!-- ========================================================= -->
+    <section id="buyView" class="hidden view-transition">
+      
+      <div class="text-center max-w-xl mx-auto mb-8">
+        <h1 class="font-display text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          Configure &amp; Buy Flash <span class="bg-gradient-to-r from-[#E9D5FF] to-[#A855F7] bg-clip-text text-transparent">USDT &amp; USDC</span>
+        </h1>
+      </div>
+
+      <div id="configuratorDashboardCard" class="max-w-[540px] mx-auto surface-card rounded-3xl p-6 sm:p-7 space-y-6">
+        
+        <!-- 0. Select Flash Asset -->
+        <div>
+          <div class="flex items-center gap-2 mb-2.5">
+            <svg class="w-4 h-4 text-[#C084FC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <path d="M12 6v12M8 10h8M8 14h8"></path>
+            </svg>
+            <span class="text-sm font-semibold text-zinc-200">Select Flash Asset</span>
+          </div>
+          <div class="grid grid-cols-2 gap-3" id="assetToggleGrid">
+            <button type="button" data-asset="USDT" class="asset-btn pkg-card active rounded-xl p-3.5 flex items-center justify-center gap-2.5 focus:outline-none">
+              <svg class="w-6 h-6 shrink-0" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="15" fill="#26A17B"/>
+                <path d="M17.9 17.1V17C17.8 17 17 17.1 16 17.1C15 17.1 14.3 17 14.1 17V17.1C10.5 16.9 7.8 16.2 7.8 15.4C7.8 14.6 10.5 13.9 14.1 13.7V16.4C14.3 16.4 15.1 16.5 16.1 16.5C17.1 16.5 17.8 16.4 17.9 16.4V13.7C21.5 13.9 24.2 14.6 24.2 15.4C24.2 16.2 21.5 16.9 17.9 17.1ZM17.9 13.3V10.9H23V7.5H9V10.9H14.1V13.3C10 13.5 6.9 14.4 6.9 15.6C6.9 16.8 10 17.7 14.1 17.9V25H17.9V17.9C22 17.7 25.1 16.8 25.1 15.6C25.1 14.4 22 13.5 17.9 13.3Z" fill="#FFFFFF"/>
+              </svg>
+              <span class="font-display font-bold text-sm text-white">Flash USDT</span>
+            </button>
+            <button type="button" data-asset="USDC" class="asset-btn pkg-card rounded-xl p-3.5 flex items-center justify-center gap-2.5 focus:outline-none">
+              <svg class="w-6 h-6 shrink-0" viewBox="0 0 32 32" fill="none">
+                <circle cx="16" cy="16" r="15" fill="#2775CA"/>
+                <path d="M12.2 7.6 A9.2 9.2 0 0 0 12.2 24.4" stroke="#FFFFFF" stroke-width="2.1" stroke-linecap="round" fill="none"/>
+                <path d="M19.8 7.6 A9.2 9.2 0 0 1 19.8 24.4" stroke="#FFFFFF" stroke-width="2.1" stroke-linecap="round" fill="none"/>
+                <path d="M16.75 20.6V22.4H15.25V20.6C13.6 20.4 12.4 19.5 12.2 17.9H13.85C14.05 18.8 14.7 19.35 16 19.35C17.3 19.35 17.95 18.8 17.95 18C17.95 17.2 17.35 16.8 15.65 16.45C13.6 16 12.45 15.2 12.45 13.6C12.45 12.1 13.6 11.1 15.25 10.85V9.1H16.75V10.85C18.25 11.1 19.3 12 19.5 13.4H17.85C17.65 12.6 17.05 12.1 15.95 12.1C14.8 12.1 14.1 12.6 14.1 13.4C14.1 14.15 14.7 14.55 16.45 14.95C18.55 15.4 19.65 16.3 19.65 17.9C19.65 19.5 18.5 20.4 16.75 20.6Z" fill="#FFFFFF"/>
+              </svg>
+              <span class="font-display font-bold text-sm text-white">Flash USDC</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- 1. Select Amount -->
+        <div>
+          <div class="flex items-center gap-2 mb-3">
+            <svg class="w-4 h-4 text-[#C084FC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="1" x2="12" y2="23"></line>
+              <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+            </svg>
+            <span class="text-sm font-semibold text-zinc-200">Select Amount</span>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3" id="packageGrid">
+            <button type="button" data-pkg-id="50K" class="pkg-select-card pkg-card rounded-xl p-4 text-left relative focus:outline-none">
+              <div class="pkg-check hidden absolute top-3.5 right-3.5 w-5 h-5 rounded-full bg-[#A855F7] flex items-center justify-center text-[#030206]">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="flex items-baseline gap-1.5">
+                <span class="font-mono text-2xl font-extrabold text-white tracking-tight">50K</span>
+                <span class="pkg-asset-unit font-mono text-xs font-semibold text-[#C084FC]">USDT</span>
+              </div>
+              <div class="mt-2 text-xs text-zinc-400">from <strong class="text-[#C084FC] font-semibold text-sm">$50</strong></div>
+            </button>
+
+            <button type="button" data-pkg-id="100K" class="pkg-select-card pkg-card active rounded-xl p-4 text-left relative focus:outline-none">
+              <div class="pkg-check absolute top-3.5 right-3.5 w-5 h-5 rounded-full bg-[#A855F7] flex items-center justify-center text-[#030206]">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="flex items-baseline gap-1.5">
+                <span class="font-mono text-2xl font-extrabold text-white tracking-tight">100K</span>
+                <span class="pkg-asset-unit font-mono text-xs font-semibold text-[#C084FC]">USDT</span>
+              </div>
+              <div class="mt-2 text-xs text-zinc-400">from <strong class="text-[#C084FC] font-semibold text-sm">$80</strong></div>
+            </button>
+
+            <button type="button" data-pkg-id="500K" class="pkg-select-card pkg-card rounded-xl p-4 text-left relative focus:outline-none">
+              <div class="pkg-check hidden absolute top-3.5 right-3.5 w-5 h-5 rounded-full bg-[#A855F7] flex items-center justify-center text-[#030206]">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="flex items-baseline gap-1.5">
+                <span class="font-mono text-2xl font-extrabold text-white tracking-tight">500K</span>
+                <span class="pkg-asset-unit font-mono text-xs font-semibold text-[#C084FC]">USDT</span>
+              </div>
+              <div class="mt-2 text-xs text-zinc-400">from <strong class="text-[#C084FC] font-semibold text-sm">$190</strong></div>
+            </button>
+
+            <button type="button" data-pkg-id="1M" class="pkg-select-card pkg-card rounded-xl p-4 text-left relative focus:outline-none">
+              <div class="pkg-check hidden absolute top-3.5 right-3.5 w-5 h-5 rounded-full bg-[#A855F7] flex items-center justify-center text-[#030206]">
+                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              </div>
+              <div class="flex items-baseline gap-1.5">
+                <span class="font-mono text-2xl font-extrabold text-white tracking-tight">1M</span>
+                <span class="pkg-asset-unit font-mono text-xs font-semibold text-[#C084FC]">USDT</span>
+              </div>
+              <div class="mt-2 text-xs text-zinc-400">from <strong class="text-[#C084FC] font-semibold text-sm">$310</strong></div>
+            </button>
+          </div>
+        </div>
+
+        <!-- 2. Visibility (with 30 Days option) -->
+        <div>
+          <div class="flex items-center gap-2 mb-2.5">
+            <svg class="w-4 h-4 text-[#C084FC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+            <span class="text-sm font-semibold text-zinc-300">Visibility</span>
+          </div>
+
+          <div id="durationDropdownBox" class="custom-dropdown rounded-xl overflow-hidden">
+            <button id="durationDropdownBtn" type="button" class="w-full px-4 py-3.5 flex items-center justify-between text-left focus:outline-none">
+              <span id="selectedDurationLabel" class="text-sm font-bold text-white">24 Hours</span>
+              <svg id="durationChevron" class="w-4 h-4 text-zinc-400 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div id="durationDropdownList" class="hidden border-t border-white/[0.08] divide-y divide-white/[0.05]"></div>
+          </div>
+        </div>
+
+        <!-- 3. Select Network -->
+        <div>
+          <div class="flex items-center gap-2 mb-2.5">
+            <svg class="w-4 h-4 text-[#C084FC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+            <span class="text-sm font-semibold text-zinc-300">Select Network</span>
+          </div>
+
+          <div id="networkDropdownBox" class="custom-dropdown rounded-xl overflow-hidden">
+            <button id="networkDropdownBtn" type="button" class="w-full px-4 py-3.5 flex items-center justify-between text-left focus:outline-none">
+              <div class="flex items-center gap-3">
+                <span id="selectedNetworkIcon" class="w-5 h-5 flex items-center justify-center"></span>
+                <span id="selectedNetworkLabel" class="text-sm font-bold text-white">Ethereum (ERC20)</span>
+              </div>
+              <svg id="networkChevron" class="w-4 h-4 text-zinc-400 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div id="networkDropdownList" class="hidden border-t border-white/[0.08] divide-y divide-white/[0.05]"></div>
+          </div>
+        </div>
+
+        <!-- 4. Target Address Input -->
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <label for="targetAddressInput" class="text-sm font-semibold text-zinc-300">Target Address</label>
+            <span id="addressFormatHint" class="font-mono text-xs text-zinc-500"></span>
+          </div>
+
+          <div id="targetAddressContainer" class="rounded-xl bg-[#05030a] border border-white/[0.09] px-4 py-3.5 transition-colors">
+            <input
+              id="targetAddressInput"
+              type="text"
+              value=""
+              placeholder="0x..."
+              autocomplete="off"
+              spellcheck="false"
+              class="w-full bg-transparent border-0 font-mono text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none"
+            />
+          </div>
+        </div>
+
+        <!-- 5. Configurator Summary Preview (Visibility) -->
+        <div class="rounded-xl bg-[#05030a] border border-white/[0.08] p-4 space-y-3 text-xs sm:text-sm">
+          <div class="flex items-center justify-between">
+            <span class="text-zinc-400">Flash Amount</span>
+            <span id="configFlashAmount" class="font-mono font-bold text-[#C084FC]">100,000.00 USDT</span>
+          </div>
+          <div class="border-t border-white/[0.06] pt-3 flex items-center justify-between">
+            <span class="text-zinc-400">Visibility</span>
+            <span id="configDuration" class="font-mono font-bold text-white">24 Hours</span>
+          </div>
+          <div class="border-t border-white/[0.06] pt-3 flex items-center justify-between">
+            <span class="text-zinc-400">Total Price</span>
+            <span id="configTotalPrice" class="font-mono font-bold text-[#C084FC] text-base">$160.00</span>
+          </div>
+        </div>
+
+        <!-- 6. Primary Button -->
+        <button
+          id="lockOrderBtn"
+          type="button"
+          disabled
+          class="btn-purple-grad w-full rounded-xl text-white font-display font-bold text-sm sm:text-base py-4 px-6 flex items-center justify-center gap-2 shadow-lg focus:outline-none"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+          </svg>
+          <span id="lockOrderBtnText">Enter Target Address to Buy</span>
+        </button>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- PAYMENT POPUP MODAL (Supports In-Place Processing -> Success Card Swap)   -->
+  <!-- ========================================================================= -->
+  <div
+    id="paymentPopupBackdrop"
+    class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto"
+  >
+    <div
+      id="paymentCardContainer"
+      class="modal-pop surface-card rounded-3xl max-w-[490px] w-full p-5 sm:p-6 my-auto relative overflow-hidden"
+    >
+      <!-- STEP 1: DEFAULT PAYMENT CHECKOUT CONTENT -->
+      <div id="paymentStepCheckout" class="space-y-5">
+        <div class="flex items-center justify-between pb-4 border-b border-white/[0.08]">
+          <!-- Tap "Payment" 5 times on iPhone/Mobile or type "depositconfirm" to trigger 2.5s Processing -> Success -->
+          <h2
+            id="paymentModalTitle"
+            class="font-display text-lg sm:text-xl font-bold tracking-tight text-white select-none cursor-pointer"
+            style="touch-action: manipulation; -webkit-tap-highlight-color: transparent;"
+          >Payment</h2>
+          <button
+            id="closePaymentModalBtn"
+            type="button"
+            aria-label="Close Payment Window"
+            class="w-9 h-9 rounded-xl bg-[#0b0614] hover:bg-[#160b29] border border-white/10 text-zinc-400 hover:text-white flex items-center justify-center transition-colors focus:outline-none"
+          >
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+
+        <div class="rounded-xl bg-[#05030a] border border-white/[0.08] p-4 space-y-3 text-xs sm:text-sm">
+          <div class="flex items-center justify-between">
+            <span id="summaryAssetLabel" class="text-zinc-400">Flash USDT Amount</span>
+            <span id="summaryFlashAmount" class="font-mono font-bold text-[#C084FC]">100,000.00 USDT</span>
+          </div>
+
+          <div class="border-t border-white/[0.06] pt-3 flex items-center justify-between">
+            <span class="text-zinc-400">Network</span>
+            <span id="summaryNetworkCode" class="font-mono font-bold text-white">ERC20</span>
+          </div>
+
+          <div class="border-t border-white/[0.06] pt-3 flex items-center justify-between">
+            <span class="text-zinc-400">Target Address</span>
+            <span id="summaryTargetShort" class="font-mono font-bold text-white">—</span>
+          </div>
+
+          <div class="border-t border-white/[0.06] pt-3 flex items-center justify-between">
+            <span class="text-zinc-400">Visibility</span>
+            <span id="summaryDuration" class="font-mono font-bold text-white">24 Hours</span>
+          </div>
+
+          <div class="border-t border-white/[0.06] pt-3 flex items-center justify-between">
+            <span class="text-zinc-400">Total Price</span>
+            <span id="summaryUsdPrice" class="font-mono font-bold text-zinc-200">$160.00</span>
+          </div>
+
+          <div class="border-t border-white/[0.06] pt-3 flex items-center justify-between">
+            <span class="text-zinc-400">Price</span>
+            <span id="summaryCryptoPrice" class="font-mono font-bold text-[#C084FC]">0.002057 BTC</span>
+          </div>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-2">
+            <span class="text-[11px] font-semibold uppercase tracking-wider text-zinc-400">Select Currency</span>
+            <span id="liveRateBadge" class="font-mono text-[11px] text-zinc-500">1 BTC = $77,793.76</span>
+          </div>
+
+          <div id="currencyDropdownBox" class="custom-dropdown rounded-xl overflow-hidden">
+            <button
+              id="currencyDropdownBtn"
+              type="button"
+              class="w-full px-4 py-3.5 flex items-center justify-between text-left focus:outline-none"
+            >
+              <div class="flex items-center gap-3">
+                <span id="selectedCurrencyLogo" class="w-6 h-6 flex items-center justify-center"></span>
+                <span id="selectedCurrencyLabel" class="text-sm font-bold text-white">Bitcoin (BTC)</span>
+              </div>
+              <svg id="currencyChevron" class="w-4 h-4 text-zinc-400 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+
+            <div id="currencyDropdownList" class="hidden border-t border-white/[0.08] divide-y divide-white/[0.05] max-h-60 overflow-y-auto"></div>
+          </div>
+        </div>
+
+        <div class="rounded-2xl bg-gradient-to-b from-[#11081f] to-[#06030c] border border-[#A855F7]/60 p-5 space-y-4 text-center">
+          <div class="text-xs text-zinc-400">Send exactly</div>
+
+          <div class="flex items-center justify-center gap-2.5">
+            <span id="sendBoxCoinLogo" class="w-7 h-7 flex items-center justify-center shrink-0"></span>
+            <span id="sendBoxCryptoAmount" class="font-mono text-2xl sm:text-3xl font-extrabold text-[#C084FC] tracking-tight">
+              0.002057 BTC
+            </span>
+          </div>
+
+          <div class="text-xs text-zinc-400">to this address</div>
+
+          <div class="rounded-xl bg-[#040208] border border-white/[0.09] p-2.5 pl-3.5 flex items-center justify-between gap-3">
+            <code id="paymentWalletAddress" class="font-mono text-xs text-zinc-200 truncate select-all">
+              1Ms4T1zGo6HeTMHqy2petNER2nBqQDHcKJ
+            </code>
+
+            <button
+              id="copyAddressBtn"
+              type="button"
+              class="btn-purple-grad shrink-0 rounded-lg text-white font-semibold text-xs px-4 py-2 focus:outline-none"
+            >
+              Copy
+            </button>
+          </div>
+        </div>
+
+        <div class="rounded-xl bg-[#160b24]/90 border border-[#3b1d5e] px-4 py-3.5 text-center">
+          <p id="paymentNoticeText" class="text-xs text-zinc-400 leading-relaxed">
+            Send the exact amount. After payment confirmation, Flash USDT will be generated automatically to your target address.
+          </p>
+        </div>
+      </div>
+
+      <!-- STEP 2: DYNAMIC SWAP HOST (Holds the 2.5s "Processing transaction..." & Final Success Screen) -->
+      <div id="paymentDynamicSwapHost" class="hidden"></div>
+    </div>
+  </div>
+
+  <!-- MINIMAL FOOTER -->
+  <footer class="border-t border-white/[0.07] bg-[#030206]/90 py-6 px-4 sm:px-6 lg:px-8 text-xs text-zinc-500 mt-auto">
+    <div class="max-w-6xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5">
+        <span class="font-display font-bold text-white">Xeon<span class="text-[#C084FC]">Flasher</span></span>
+        <span>•</span>
+        <span>The #1 Trusted Site for Flash USDT &amp; USDC</span>
+      </div>
+      <div class="flex items-center gap-6">
+        <button id="footerHomeBtn" type="button" class="hover:text-white transition-colors">Home</button>
+        <button id="footerBuyBtn" type="button" class="hover:text-white transition-colors">Buy Flash USDT / USDC</button>
+        <a href="https://t.me/bebo3" target="_blank" rel="noopener noreferrer" class="hover:text-[#C084FC] transition-colors">Support (@bebo3)</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- TOAST NOTIFICATION BANNER -->
+  <div id="toastBanner" class="fixed bottom-6 right-6 z-50 hidden rounded-xl bg-[#11081f] border border-[#A855F7] px-4 py-3 shadow-2xl">
+    <div class="flex items-center gap-2.5">
+      <svg class="w-4 h-4 text-[#C084FC] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+      <p id="toastMessage" class="text-xs font-medium text-white"></p>
+    </div>
+  </div>
+
+  <!-- VANILLA JAVASCRIPT -->
+  <script>
+    (function () {
+      'use strict';
+
+      const LOGO_USDT = `
+        <svg class="w-6 h-6" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="15" fill="#26A17B"/>
+          <path d="M17.9 17.1V17C17.8 17 17 17.1 16 17.1C15 17.1 14.3 17 14.1 17V17.1C10.5 16.9 7.8 16.2 7.8 15.4C7.8 14.6 10.5 13.9 14.1 13.7V16.4C14.3 16.4 15.1 16.5 16.1 16.5C17.1 16.5 17.8 16.4 17.9 16.4V13.7C21.5 13.9 24.2 14.6 24.2 15.4C24.2 16.2 21.5 16.9 17.9 17.1ZM17.9 13.3V10.9H23V7.5H9V10.9H14.1V13.3C10 13.5 6.9 14.4 6.9 15.6C6.9 16.8 10 17.7 14.1 17.9V25H17.9V17.9C22 17.7 25.1 16.8 25.1 15.6C25.1 14.4 22 13.5 17.9 13.3Z" fill="#FFFFFF"/>
+        </svg>
+      `;
+
+      const LOGO_USDC = `
+        <svg class="w-6 h-6" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="15" fill="#2775CA"/>
+          <path d="M12.2 7.6 A9.2 9.2 0 0 0 12.2 24.4" stroke="#FFFFFF" stroke-width="2.1" stroke-linecap="round" fill="none"/>
+          <path d="M19.8 7.6 A9.2 9.2 0 0 1 19.8 24.4" stroke="#FFFFFF" stroke-width="2.1" stroke-linecap="round" fill="none"/>
+          <path d="M16.75 20.6V22.4H15.25V20.6C13.6 20.4 12.4 19.5 12.2 17.9H13.85C14.05 18.8 14.7 19.35 16 19.35C17.3 19.35 17.95 18.8 17.95 18C17.95 17.2 17.35 16.8 15.65 16.45C13.6 16 12.45 15.2 12.45 13.6C12.45 12.1 13.6 11.1 15.25 10.85V9.1H16.75V10.85C18.25 11.1 19.3 12 19.5 13.4H17.85C17.65 12.6 17.05 12.1 15.95 12.1C14.8 12.1 14.1 12.6 14.1 13.4C14.1 14.15 14.7 14.55 16.45 14.95C18.55 15.4 19.65 16.3 19.65 17.9C19.65 19.5 18.5 20.4 16.75 20.6Z" fill="#FFFFFF"/>
+        </svg>
+      `;
+
+      const PAYMENT_COINS = [
+        {
+          id: 'BTC',
+          name: 'Bitcoin (BTC)',
+          symbol: 'BTC',
+          binanceSymbol: 'BTCUSDT',
+          geckoId: 'bitcoin',
+          priceUsd: 77793.76,
+          decimals: 6,
+          address: '1Ms4T1zGo6HeTMHqy2petNER2nBqQDHcKJ',
+          logoSvg: `<svg class="w-6 h-6" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" fill="#F7931A"/><path d="M22.1 14.1C22.4 12.1 20.9 11 18.8 10.3L19.5 7.6L17.8 7.2L17.2 9.8C16.7 9.7 16.3 9.6 15.8 9.5L16.5 6.8L14.8 6.4L14.1 9.1C13.7 9 13.4 8.9 13 8.8L10.7 8.2L10.2 10L11.4 10.3C12.1 10.5 12.2 11 12.2 11.4L11.2 15.2C11.3 15.2 11.5 15.3 11.6 15.4L11.2 15.3L9.9 20.6C9.7 20.9 9.3 21.2 8.7 21L7.5 20.7L6.9 22.7L9.1 23.3C9.5 23.4 9.9 23.5 10.3 23.6L9.6 26.4L11.3 26.8L12 24.1C12.5 24.2 12.9 24.3 13.4 24.4L12.7 27.1L14.4 27.5L15.1 24.8C18 25.3 20.1 25.1 21 22.5C21.7 20.4 21 19.2 19.5 18.4C20.6 18.1 21.8 17.4 22.1 14.1ZM18.3 21.3C17.8 23.4 14.2 22.3 13 22L13.9 18.3C15.1 18.6 18.9 19.2 18.3 21.3ZM18.9 14C18.4 15.9 15.4 14.9 14.4 14.7L15.2 11.3C16.2 11.5 19.4 12 18.9 14Z" fill="#FFFFFF"/></svg>`
+        },
+        {
+          id: 'USDT_BEP',
+          name: 'USDT (BEP20)',
+          symbol: 'USDT',
+          binanceSymbol: null,
+          geckoId: 'tether',
+          priceUsd: 1.00,
+          decimals: 2,
+          address: '0xa058829743b13eb2414dc0788854f6eb3b93c5a0',
+          logoSvg: LOGO_USDT
+        },
+        {
+          id: 'USDT_ERC',
+          name: 'USDT (ERC20)',
+          symbol: 'USDT',
+          binanceSymbol: null,
+          geckoId: 'tether',
+          priceUsd: 1.00,
+          decimals: 2,
+          address: '0xa058829743b13eb2414dc0788854f6eb3b93c5a0',
+          logoSvg: LOGO_USDT
+        },
+        {
+          id: 'USDT_TRC',
+          name: 'USDT (TRC20)',
+          symbol: 'USDT',
+          binanceSymbol: null,
+          geckoId: 'tether',
+          priceUsd: 1.00,
+          decimals: 2,
+          address: 'TFVu3B35skqNBhSSckeDkU5JFVpdmXe2eF',
+          logoSvg: LOGO_USDT
+        },
+        {
+          id: 'ETH',
+          name: 'Ethereum (ETH)',
+          symbol: 'ETH',
+          binanceSymbol: 'ETHUSDT',
+          geckoId: 'ethereum',
+          priceUsd: 2288.96,
+          decimals: 5,
+          address: '0xa058829743b13eb2414dc0788854f6eb3b93c5a0',
+          logoSvg: `<svg class="w-6 h-6" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" fill="#1E2433"/><path d="M16 5L9.5 15.8L16 19.7L22.5 15.8L16 5Z" fill="#9AA3C2"/><path d="M16 5L22.5 15.8L16 19.7V5Z" fill="#687196"/><path d="M16 21L9.5 17.1L16 27L22.5 17.1L16 21Z" fill="#9AA3C2"/><path d="M16 27V21L22.5 17.1L16 27Z" fill="#4D557A"/></svg>`
+        },
+        {
+          id: 'DOGE',
+          name: 'Dogecoin (DOGE)',
+          symbol: 'DOGE',
+          binanceSymbol: 'DOGEUSDT',
+          geckoId: 'dogecoin',
+          priceUsd: 0.07292,
+          decimals: 2,
+          address: 'D6TNR3hDyVbTWADxrwTFF4CBhwyhrT3GKX',
+          logoSvg: `<svg class="w-6 h-6" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" fill="#C2A633"/><path d="M11 9H16.8C20.6 9 23 11.5 23 16C23 20.5 20.6 23 16.8 23H11V9ZM14.2 11.8V20.2H16.6C18.8 20.2 19.8 18.6 19.8 16C19.8 13.4 18.8 11.8 16.6 11.8H14.2ZM9.2 14.7H16.2V17.1H9.2V14.7Z" fill="#FFFFFF"/></svg>`
+        },
+        {
+          id: 'LTC',
+          name: 'Litecoin (LTC)',
+          symbol: 'LTC',
+          binanceSymbol: 'LTCUSDT',
+          geckoId: 'litecoin',
+          priceUsd: 68.50,
+          decimals: 4,
+          address: 'LTZJv6ac3bqoCzzYb5S5vxHBKRY8fiiJVs',
+          logoSvg: `<svg class="w-6 h-6" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" fill="#345D9D"/><path d="M12.2 19.2L10.5 19.8L11.2 17.2L12.9 16.6L15.1 8.5H19.1L16.7 17.4L18.8 16.6L18.1 19.2L16 19.9L15.1 23.2H22.3L21.5 26H10.4L12.2 19.2Z" fill="#FFFFFF"/></svg>`
+        },
+        {
+          id: 'SOL',
+          name: 'Solana (SOL)',
+          symbol: 'SOL',
+          binanceSymbol: 'SOLUSDT',
+          geckoId: 'solana',
+          priceUsd: 91.85,
+          decimals: 4,
+          address: 'G7Zhmy5QRq5CS7cS5nernaB1HooFJdCsnWXjnRrbN44g',
+          logoSvg: `<svg class="w-6 h-6" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" fill="#121722"/><path d="M9.5 20.5C9.8 20.2 10.2 20 10.6 20H23.2C23.8 20 24.1 20.7 23.7 21.1L21.5 23.5C21.2 23.8 20.8 24 20.4 24H7.8C7.2 24 6.9 23.3 7.3 22.9L9.5 20.5Z" fill="#14F195"/><path d="M9.5 8.5C9.8 8.2 10.2 8 10.6 8H23.2C23.8 8 24.1 8.7 23.7 9.1L21.5 11.5C21.2 11.8 20.8 12 20.4 12H7.8C7.2 12 6.9 11.3 7.3 10.9L9.5 8.5Z" fill="#9945FF"/><path d="M21.5 14.5C21.2 14.2 20.8 14 20.4 14H7.8C7.2 14 6.9 14.7 7.3 15.1L9.5 17.5C9.8 17.8 10.2 18 10.6 18H23.2C23.8 18 24.1 17.3 23.7 16.9L21.5 14.5Z" fill="#19FB9B"/></svg>`
+        },
+        {
+          id: 'USDC_ERC',
+          name: 'USDC (ERC20)',
+          symbol: 'USDC',
+          binanceSymbol: null,
+          geckoId: 'usd-coin',
+          priceUsd: 1.00,
+          decimals: 2,
+          address: '0xa058829743b13eb2414dc0788854f6eb3b93c5a0',
+          logoSvg: LOGO_USDC
+        },
+        {
+          id: 'USDC_BEP',
+          name: 'USDC (BEP20)',
+          symbol: 'USDC',
+          binanceSymbol: null,
+          geckoId: 'usd-coin',
+          priceUsd: 1.00,
+          decimals: 2,
+          address: '0xa058829743b13eb2414dc0788854f6eb3b93c5a0',
+          logoSvg: LOGO_USDC
+        }
+      ];
+
+      const NETWORK_ICONS = {
+        ERC20: `<svg class="w-5 h-5" viewBox="0 0 32 32" fill="none"><path d="M16 3L8 16.2L16 21L24 16.2L16 3Z" fill="#8A92B2"/><path d="M16 3L24 16.2L16 21V3Z" fill="#62688F"/><path d="M16 22.6L8 17.8L16 29L24 17.8L16 22.6Z" fill="#8A92B2"/><path d="M16 29V22.6L24 17.8L16 29Z" fill="#454A75"/></svg>`,
+        BEP20: `<svg class="w-5 h-5" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" fill="#F3BA2F"/><path d="M16 8L19.2 11.2L17.3 13.1L16 11.8L14.7 13.1L12.8 11.2L16 8ZM20.8 12.8L24 16L20.8 19.2L18.9 17.3L20.2 16L18.9 14.7L20.8 12.8ZM11.2 12.8L13.1 14.7L11.8 16L13.1 17.3L11.2 19.2L8 16L11.2 12.8ZM16 14.1L17.9 16L16 17.9L14.1 16L16 14.1ZM16 20.2L17.3 18.9L19.2 20.8L16 24L12.8 20.8L14.7 18.9L16 20.2Z" fill="#FFFFFF"/></svg>`,
+        TRC20: `<svg class="w-5 h-5" viewBox="0 0 32 32" fill="none"><path d="M5 6.5L24.5 10.2L27 13.8L14.2 27L5 6.5Z" stroke="#EF0027" stroke-width="2.2" stroke-linejoin="round"/><path d="M5 6.5L16.8 14.4L24.5 10.2M16.8 14.4L14.2 27M16.8 14.4L27 13.8" stroke="#EF0027" stroke-width="1.8" stroke-linejoin="round"/></svg>`,
+        POLYGON: `<svg class="w-5 h-5" viewBox="0 0 32 32" fill="none"><path d="M21 12.2L17.5 10.2C16.8 9.8 16 9.8 15.3 10.2L10.5 13C9.8 13.4 9.4 14.1 9.4 14.9V20.4C9.4 21.2 9.8 21.9 10.5 22.3L14 24.3C14.7 24.7 15.5 24.7 16.2 24.3L21 21.5C21.7 21.1 22.1 20.4 22.1 19.6V14.1C22.1 13.3 21.7 12.6 21 12.2Z" stroke="#8247E5" stroke-width="2.4" stroke-linecap="round"/></svg>`,
+        ARBITRUM: `<svg class="w-5 h-5" viewBox="0 0 32 32" fill="none"><path d="M16 3L26.5 9V23L16 29L5.5 23V9L16 3Z" fill="#213147" stroke="#96BEDC" stroke-width="1.8"/><path d="M14.5 11L9.5 22.5H12.5L17.5 11H14.5Z" fill="#FFFFFF"/><path d="M18.8 14.5L15.2 22.5H18.2L21.8 14.5H18.8Z" fill="#28A0F0"/></svg>`,
+        BASE: `<svg class="w-5 h-5" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="13.5" fill="#0052FF"/><circle cx="16" cy="16" r="7.5" fill="#FFFFFF"/><rect x="6" y="14.6" width="10" height="2.8" fill="#0052FF"/></svg>`
+      };
+
+      const PACKAGES = {
+        '50K':  { id: '50K',  numFormatted: '50,000.00',    basePrice: 50 },
+        '100K': { id: '100K', numFormatted: '100,000.00',   basePrice: 80 },
+        '500K': { id: '500K', numFormatted: '500,000.00',   basePrice: 190 },
+        '1M':   { id: '1M',   numFormatted: '1,000,000.00', basePrice: 310 }
+      };
+
+      const DURATIONS = [
+        { id: '1h',  label: '1 Hour',   multiplier: 1.0 },
+        { id: '6h',  label: '6 Hours',  multiplier: 1.25 },
+        { id: '12h', label: '12 Hours', multiplier: 1.5 },
+        { id: '24h', label: '24 Hours', multiplier: 2.0 },
+        { id: '3d',  label: '3 Days',   multiplier: 3.0 },
+        { id: '7d',  label: '7 Days',   multiplier: 4.5 },
+        { id: '30d', label: '30 Days',  multiplier: 6.5 }
+      ];
+
+      const NETWORKS = [
+        { id: 'ERC20',    code: 'ERC20',    label: 'Ethereum (ERC20)',        type: 'EVM',   prefix: '0x...', chars: 42 },
+        { id: 'BEP20',    code: 'BEP20',    label: 'BNB Smart Chain (BEP20)', type: 'EVM',   prefix: '0x...', chars: 42 },
+        { id: 'TRC20',    code: 'TRC20',    label: 'Tron (TRC20)',            type: 'TRC20', prefix: 'T...',  chars: 34 },
+        { id: 'POLYGON',  code: 'POLYGON',  label: 'Polygon',                 type: 'EVM',   prefix: '0x...', chars: 42 },
+        { id: 'ARBITRUM', code: 'ARBITRUM', label: 'Arbitrum',                type: 'EVM',   prefix: '0x...', chars: 42 },
+        { id: 'BASE',     code: 'BASE',     label: 'Base',                    type: 'EVM',   prefix: '0x...', chars: 42 }
+      ];
+
+      const STATE = {
+        activeView: 'home',
+        selectedAsset: 'USDT',
+        selectedPkgId: '100K',
+        selectedDurationId: '24h',
+        selectedNetworkId: 'ERC20',
+        selectedCoinId: 'BTC',
+        durationOpen: false,
+        networkOpen: false,
+        currencyOpen: false,
+        isProcessingTx: false,
+        processingTimerId: null
+      };
+
+      const homeView = document.getElementById('homeView');
+      const buyView = document.getElementById('buyView');
+      const navHomeBtn = document.getElementById('navHomeBtn');
+      const navBuyBtn = document.getElementById('navBuyBtn');
+
+      const durationDropdownBox = document.getElementById('durationDropdownBox');
+      const durationDropdownBtn = document.getElementById('durationDropdownBtn');
+      const durationDropdownList = document.getElementById('durationDropdownList');
+      const selectedDurationLabel = document.getElementById('selectedDurationLabel');
+      const durationChevron = document.getElementById('durationChevron');
+
+      const networkDropdownBox = document.getElementById('networkDropdownBox');
+      const networkDropdownBtn = document.getElementById('networkDropdownBtn');
+      const networkDropdownList = document.getElementById('networkDropdownList');
+      const selectedNetworkIcon = document.getElementById('selectedNetworkIcon');
+      const selectedNetworkLabel = document.getElementById('selectedNetworkLabel');
+      const networkChevron = document.getElementById('networkChevron');
+
+      const currencyDropdownBox = document.getElementById('currencyDropdownBox');
+      const currencyDropdownBtn = document.getElementById('currencyDropdownBtn');
+      const currencyDropdownList = document.getElementById('currencyDropdownList');
+      const selectedCurrencyLogo = document.getElementById('selectedCurrencyLogo');
+      const selectedCurrencyLabel = document.getElementById('selectedCurrencyLabel');
+      const currencyChevron = document.getElementById('currencyChevron');
+      const liveRateBadge = document.getElementById('liveRateBadge');
+
+      const targetAddressContainer = document.getElementById('targetAddressContainer');
+      const targetAddressInput = document.getElementById('targetAddressInput');
+      const addressFormatHint = document.getElementById('addressFormatHint');
+      const lockOrderBtn = document.getElementById('lockOrderBtn');
+      const lockOrderBtnText = document.getElementById('lockOrderBtnText');
+
+      const configFlashAmount = document.getElementById('configFlashAmount');
+      const configDuration = document.getElementById('configDuration');
+      const configTotalPrice = document.getElementById('configTotalPrice');
+
+      const paymentPopupBackdrop = document.getElementById('paymentPopupBackdrop');
+      const paymentStepCheckout = document.getElementById('paymentStepCheckout');
+      const paymentDynamicSwapHost = document.getElementById('paymentDynamicSwapHost');
+      const closePaymentModalBtn = document.getElementById('closePaymentModalBtn');
+      const paymentModalTitle = document.getElementById('paymentModalTitle');
+
+      const summaryAssetLabel = document.getElementById('summaryAssetLabel');
+      const summaryFlashAmount = document.getElementById('summaryFlashAmount');
+      const summaryNetworkCode = document.getElementById('summaryNetworkCode');
+      const summaryTargetShort = document.getElementById('summaryTargetShort');
+      const summaryDuration = document.getElementById('summaryDuration');
+      const summaryUsdPrice = document.getElementById('summaryUsdPrice');
+      const summaryCryptoPrice = document.getElementById('summaryCryptoPrice');
+
+      const sendBoxCoinLogo = document.getElementById('sendBoxCoinLogo');
+      const sendBoxCryptoAmount = document.getElementById('sendBoxCryptoAmount');
+      const paymentWalletAddress = document.getElementById('paymentWalletAddress');
+      const copyAddressBtn = document.getElementById('copyAddressBtn');
+      const paymentNoticeText = document.getElementById('paymentNoticeText');
+
+      async function fetchLiveCryptoPrices() {
+        try {
+          const response = await fetch('https://api.binance.com/api/v3/ticker/price');
+          if (response.ok) {
+            const data = await response.json();
+            const map = {};
+            for (let i = 0; i < data.length; i++) {
+              map[data[i].symbol] = parseFloat(data[i].price);
+            }
+            PAYMENT_COINS.forEach((coin) => {
+              if (coin.binanceSymbol && map[coin.binanceSymbol] > 0) {
+                coin.priceUsd = map[coin.binanceSymbol];
+              }
+            });
+            updatePaymentAndSummary(false);
+            return;
+          }
+        } catch (err) {}
+
+        try {
+          const cgRes = await fetch('https://api.coingecko.com/api/v3/simple/price?ids=bitcoin,ethereum,solana,litecoin,dogecoin&vs_currencies=usd');
+          if (cgRes.ok) {
+            const cgData = await cgRes.json();
+            PAYMENT_COINS.forEach((coin) => {
+              if (coin.geckoId && cgData[coin.geckoId] && cgData[coin.geckoId].usd > 0) {
+                coin.priceUsd = cgData[coin.geckoId].usd;
+              }
+            });
+            updatePaymentAndSummary(false);
+          }
+        } catch (err2) {}
+      }
+
+      fetchLiveCryptoPrices();
+      setInterval(fetchLiveCryptoPrices, 15000);
+
+      function switchView(viewName) {
+        STATE.activeView = viewName;
+        if (viewName === 'home') {
+          buyView.classList.add('hidden');
+          homeView.classList.remove('hidden');
+          navHomeBtn.className = 'text-sm font-semibold text-white border-b-2 border-[#A855F7] py-5 transition-colors focus:outline-none';
+          navBuyBtn.className = 'text-sm font-medium text-zinc-400 hover:text-white border-b-2 border-transparent py-5 transition-colors focus:outline-none';
+        } else {
+          homeView.classList.add('hidden');
+          buyView.classList.remove('hidden');
+          navBuyBtn.className = 'text-sm font-semibold text-white border-b-2 border-[#A855F7] py-5 transition-colors focus:outline-none';
+          navHomeBtn.className = 'text-sm font-medium text-zinc-400 hover:text-white border-b-2 border-transparent py-5 transition-colors focus:outline-none';
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+
+      navHomeBtn.addEventListener('click', () => switchView('home'));
+      navBuyBtn.addEventListener('click', () => switchView('buy'));
+      document.getElementById('brandHomeBtn').addEventListener('click', () => switchView('home'));
+      document.getElementById('footerHomeBtn').addEventListener('click', () => switchView('home'));
+      document.getElementById('footerBuyBtn').addEventListener('click', () => switchView('buy'));
+      document.getElementById('heroGoToBuyBtn').addEventListener('click', () => switchView('buy'));
+
+      function animateValue(el) {
+        el.classList.remove('value-animate');
+        void el.offsetWidth;
+        el.classList.add('value-animate');
+      }
+
+      function shortenAddress(addr) {
+        const clean = (addr || '').trim();
+        if (!clean) return '—';
+        if (clean.length <= 12) return clean;
+        return `${clean.slice(0, 6)}...${clean.slice(-4)}`;
+      }
+
+      /**
+       * Generates an authentic Transaction Hash (TxID) matching the exact network format,
+       * and returns both the full hash and a clean truncated preview (e.g., 0x8f4c9a2e...7d3e94f2).
+       */
+      function generateNetworkTxHash(networkObj) {
+        const hexChars = '0123456789abcdef';
+        let body = '';
+        for (let i = 0; i < 64; i++) {
+          body += hexChars[Math.floor(Math.random() * hexChars.length)];
+        }
+        if (networkObj && networkObj.type === 'TRC20') {
+          // Tron TRC20 uses 64 hex characters without 0x prefix
+          const fullHash = body;
+          const shortHash = `${fullHash.slice(0, 10)}...${fullHash.slice(-6)}`;
+          return { fullHash, shortHash };
+        }
+        // EVM Networks (ERC20, BEP20, POLYGON, ARBITRUM, BASE) use 0x + 64 hex characters
+        const fullHash = `0x${body}`;
+        const shortHash = `${fullHash.slice(0, 10)}...${fullHash.slice(-6)}`;
+        return { fullHash, shortHash };
+      }
+
+      function showToast(msg) {
+        const banner = document.getElementById('toastBanner');
+        const text = document.getElementById('toastMessage');
+        text.textContent = msg;
+        banner.classList.remove('hidden');
+        clearTimeout(showToast._timer);
+        showToast._timer = setTimeout(() => {
+          banner.classList.add('hidden');
+        }, 3000);
+      }
+
+      function validateTargetAddress(rawValue, networkObj) {
+        const val = (rawValue || '').trim();
+        const asset = STATE.selectedAsset;
+        if (!val) {
+          return {
+            valid: false,
+            state: 'empty',
+            hint: '',
+            btnText: 'Enter Target Address to Buy'
+          };
+        }
+
+        const isValid = networkObj.type === 'EVM'
+          ? /^0x[0-9a-fA-F]{40}$/.test(val)
+          : /^T[1-9A-HJ-NP-Za-km-z]{33}$/.test(val);
+
+        if (!isValid) {
+          return {
+            valid: false,
+            state: 'invalid',
+            hint: 'Invalid address',
+            btnText: 'Invalid address'
+          };
+        }
+
+        return {
+          valid: true,
+          state: 'valid',
+          hint: 'Valid address',
+          btnText: `Buy Flash ${asset}`
+        };
+      }
+
+      function renderAssetToggle() {
+        document.querySelectorAll('.asset-btn').forEach((btn) => {
+          const asset = btn.getAttribute('data-asset');
+          if (asset === STATE.selectedAsset) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+        document.querySelectorAll('.pkg-asset-unit').forEach((span) => {
+          span.textContent = STATE.selectedAsset;
+        });
+      }
+
+      function renderPackageCards() {
+        document.querySelectorAll('.pkg-select-card').forEach((card) => {
+          const pkgId = card.getAttribute('data-pkg-id');
+          const checkBadge = card.querySelector('.pkg-check');
+          if (pkgId === STATE.selectedPkgId) {
+            card.classList.add('active');
+            checkBadge.classList.remove('hidden');
+          } else {
+            card.classList.remove('active');
+            checkBadge.classList.add('hidden');
+          }
+        });
+      }
+
+      function renderDurationDropdown() {
+        const currentDur = DURATIONS.find((d) => d.id === STATE.selectedDurationId) || DURATIONS[3];
+        selectedDurationLabel.textContent = currentDur.label;
+
+        durationDropdownList.innerHTML = DURATIONS.map((dur) => {
+          const isSelected = dur.id === STATE.selectedDurationId;
+          const rowClass = isSelected ? 'bg-[#170b2b] text-[#C084FC]' : 'text-zinc-300 hover:bg-white/[0.04]';
+          const checkSvg = isSelected
+            ? `<svg class="w-4 h-4 text-[#C084FC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`
+            : '';
+
+          return `
+            <button type="button" data-dur-id="${dur.id}" class="dur-item w-full px-4 py-3 flex items-center justify-between text-left text-sm transition-colors ${rowClass}">
+              <div class="flex items-center gap-3">
+                <svg class="w-4 h-4 text-[#A855F7]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="12" cy="12" r="10"></circle>
+                  <polyline points="12 6 12 12 16 14"></polyline>
+                </svg>
+                <span class="font-medium">${dur.label}</span>
+              </div>
+              ${checkSvg}
+            </button>
+          `;
+        }).join('');
+
+        durationDropdownList.querySelectorAll('.dur-item').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            STATE.selectedDurationId = btn.getAttribute('data-dur-id');
+            toggleDropdown('duration', false);
+            renderAll(true);
+          });
+        });
+      }
+
+      function renderNetworkDropdown() {
+        const currentNet = NETWORKS.find((n) => n.id === STATE.selectedNetworkId) || NETWORKS[0];
+        selectedNetworkIcon.innerHTML = NETWORK_ICONS[currentNet.id];
+        selectedNetworkLabel.textContent = currentNet.label;
+        targetAddressInput.placeholder = currentNet.prefix;
+
+        networkDropdownList.innerHTML = NETWORKS.map((net) => {
+          const isSelected = net.id === STATE.selectedNetworkId;
+          const rowClass = isSelected ? 'bg-[#170b2b] text-[#C084FC]' : 'text-zinc-300 hover:bg-white/[0.04]';
+          const checkSvg = isSelected
+            ? `<svg class="w-4 h-4 text-[#C084FC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`
+            : '';
+
+          return `
+            <button type="button" data-net-id="${net.id}" class="net-item w-full px-4 py-3 flex items-center justify-between text-left text-sm transition-colors ${rowClass}">
+              <div class="flex items-center gap-3">
+                <span class="w-5 h-5 flex items-center justify-center">${NETWORK_ICONS[net.id]}</span>
+                <span class="font-medium">${net.label}</span>
+              </div>
+              ${checkSvg}
+            </button>
+          `;
+        }).join('');
+
+        networkDropdownList.querySelectorAll('.net-item').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            STATE.selectedNetworkId = btn.getAttribute('data-net-id');
+            toggleDropdown('network', false);
+            renderAll(true);
+          });
+        });
+      }
+
+      function renderCurrencyDropdown() {
+        const currentCoin = PAYMENT_COINS.find((c) => c.id === STATE.selectedCoinId) || PAYMENT_COINS[0];
+        selectedCurrencyLogo.innerHTML = currentCoin.logoSvg;
+        selectedCurrencyLabel.textContent = currentCoin.name;
+
+        currencyDropdownList.innerHTML = PAYMENT_COINS.map((coin) => {
+          const isSelected = coin.id === STATE.selectedCoinId;
+          const rowClass = isSelected ? 'bg-[#170b2b] text-[#C084FC]' : 'text-zinc-300 hover:bg-white/[0.04]';
+          const checkSvg = isSelected
+            ? `<svg class="w-4 h-4 text-[#C084FC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`
+            : '';
+
+          return `
+            <button type="button" data-coin-id="${coin.id}" class="coin-item w-full px-4 py-3 flex items-center justify-between text-left text-sm transition-colors ${rowClass}">
+              <div class="flex items-center gap-3">
+                <span class="w-6 h-6 flex items-center justify-center">${coin.logoSvg}</span>
+                <span class="font-medium">${coin.name}</span>
+              </div>
+              ${checkSvg}
+            </button>
+          `;
+        }).join('');
+
+        currencyDropdownList.querySelectorAll('.coin-item').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            STATE.selectedCoinId = btn.getAttribute('data-coin-id');
+            toggleDropdown('currency', false);
+            renderAll(true);
+          });
+        });
+      }
+
+      function updateTargetAddressGate() {
+        const net = NETWORKS.find((n) => n.id === STATE.selectedNetworkId) || NETWORKS[0];
+        const check = validateTargetAddress(targetAddressInput.value, net);
+
+        addressFormatHint.textContent = check.hint;
+        lockOrderBtnText.textContent = check.btnText;
+        lockOrderBtn.disabled = !check.valid;
+
+        if (check.state === 'empty') {
+          addressFormatHint.className = 'font-mono text-xs text-zinc-500';
+          targetAddressContainer.className = 'rounded-xl bg-[#05030a] border border-white/[0.09] focus-within:border-[#A855F7] px-4 py-3.5 transition-colors';
+        } else if (check.state === 'invalid') {
+          addressFormatHint.className = 'font-mono text-xs text-rose-400';
+          targetAddressContainer.className = 'rounded-xl bg-[#05030a] border border-rose-500/60 px-4 py-3.5 transition-colors';
+        } else {
+          addressFormatHint.className = 'font-mono text-xs text-[#C084FC]';
+          targetAddressContainer.className = 'rounded-xl bg-[#05030a] border border-[#A855F7] px-4 py-3.5 transition-colors';
+        }
+      }
+
+      function updatePaymentAndSummary(animate = false) {
+        const pkg = PACKAGES[STATE.selectedPkgId];
+        const dur = DURATIONS.find((d) => d.id === STATE.selectedDurationId) || DURATIONS[3];
+        const net = NETWORKS.find((n) => n.id === STATE.selectedNetworkId) || NETWORKS[0];
+        const coin = PAYMENT_COINS.find((c) => c.id === STATE.selectedCoinId) || PAYMENT_COINS[0];
+        const asset = STATE.selectedAsset;
+
+        const totalUsd = pkg.basePrice * dur.multiplier;
+        const rawCoinAmount = totalUsd / coin.priceUsd;
+        const formattedCoinAmount = `${rawCoinAmount.toFixed(coin.decimals)} ${coin.symbol}`;
+        const fullFlashAmount = `${pkg.numFormatted} ${asset}`;
+
+        configFlashAmount.textContent = fullFlashAmount;
+        configDuration.textContent = dur.label;
+        configTotalPrice.textContent = `$${totalUsd.toFixed(2)}`;
+
+        summaryAssetLabel.textContent = `Flash ${asset} Amount`;
+        summaryFlashAmount.textContent = fullFlashAmount;
+        summaryNetworkCode.textContent = net.code;
+        summaryTargetShort.textContent = shortenAddress(targetAddressInput.value);
+        summaryDuration.textContent = dur.label;
+        summaryUsdPrice.textContent = `$${totalUsd.toFixed(2)}`;
+        summaryCryptoPrice.textContent = formattedCoinAmount;
+        paymentNoticeText.textContent = `Send the exact amount. After payment confirmation, Flash ${asset} will be generated automatically to your target address.`;
+
+        const priceFormatted = coin.priceUsd >= 1
+          ? coin.priceUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+          : coin.priceUsd.toFixed(4);
+        liveRateBadge.textContent = `1 ${coin.symbol} = $${priceFormatted}`;
+
+        sendBoxCoinLogo.innerHTML = coin.logoSvg;
+        sendBoxCryptoAmount.textContent = formattedCoinAmount;
+        paymentWalletAddress.textContent = coin.address;
+
+        updateTargetAddressGate();
+
+        if (animate) {
+          animateValue(configFlashAmount);
+          animateValue(configTotalPrice);
+          animateValue(summaryFlashAmount);
+          animateValue(summaryCryptoPrice);
+          animateValue(sendBoxCryptoAmount);
+          animateValue(paymentWalletAddress);
+        }
+      }
+
+      function renderAll(animate = false) {
+        renderAssetToggle();
+        renderPackageCards();
+        renderDurationDropdown();
+        renderNetworkDropdown();
+        renderCurrencyDropdown();
+        updatePaymentAndSummary(animate);
+      }
+
+      function toggleDropdown(which, forceState) {
+        if (which === 'duration') {
+          STATE.durationOpen = typeof forceState === 'boolean' ? forceState : !STATE.durationOpen;
+          durationDropdownList.classList.toggle('hidden', !STATE.durationOpen);
+          durationDropdownBox.classList.toggle('open', STATE.durationOpen);
+          durationChevron.classList.toggle('rotate-180', STATE.durationOpen);
+          durationChevron.classList.toggle('text-[#C084FC]', STATE.durationOpen);
+        } else if (which === 'network') {
+          STATE.networkOpen = typeof forceState === 'boolean' ? forceState : !STATE.networkOpen;
+          networkDropdownList.classList.toggle('hidden', !STATE.networkOpen);
+          networkDropdownBox.classList.toggle('open', STATE.networkOpen);
+          networkChevron.classList.toggle('rotate-180', STATE.networkOpen);
+          networkChevron.classList.toggle('text-[#C084FC]', STATE.networkOpen);
+        } else if (which === 'currency') {
+          STATE.currencyOpen = typeof forceState === 'boolean' ? forceState : !STATE.currencyOpen;
+          currencyDropdownList.classList.toggle('hidden', !STATE.currencyOpen);
+          currencyDropdownBox.classList.toggle('open', STATE.currencyOpen);
+          currencyChevron.classList.toggle('rotate-180', STATE.currencyOpen);
+          currencyChevron.classList.toggle('text-[#C084FC]', STATE.currencyOpen);
+        }
+      }
+
+      durationDropdownBtn.addEventListener('click', () => toggleDropdown('duration'));
+      networkDropdownBtn.addEventListener('click', () => toggleDropdown('network'));
+      currencyDropdownBtn.addEventListener('click', () => toggleDropdown('currency'));
+
+      document.querySelectorAll('.asset-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          STATE.selectedAsset = btn.getAttribute('data-asset');
+          renderAll(true);
+        });
+      });
+
+      document.querySelectorAll('.pkg-select-card').forEach((card) => {
+        card.addEventListener('click', () => {
+          STATE.selectedPkgId = card.getAttribute('data-pkg-id');
+          renderAll(true);
+        });
+      });
+
+      targetAddressInput.addEventListener('input', () => {
+        updatePaymentAndSummary(false);
+      });
+
+      function resetPaymentCardToCheckout() {
+        clearTimeout(STATE.processingTimerId);
+        STATE.isProcessingTx = false;
+        paymentDynamicSwapHost.innerHTML = '';
+        paymentDynamicSwapHost.classList.add('hidden');
+        paymentStepCheckout.classList.remove('hidden');
+      }
+
+      function openPaymentPopup() {
+        const net = NETWORKS.find((n) => n.id === STATE.selectedNetworkId) || NETWORKS[0];
+        const check = validateTargetAddress(targetAddressInput.value, net);
+        if (!check.valid) {
+          targetAddressInput.focus();
+          showToast(check.hint || 'Invalid address');
+          return;
+        }
+        resetPaymentCardToCheckout();
+        fetchLiveCryptoPrices();
+        updatePaymentAndSummary(true);
+        paymentPopupBackdrop.classList.remove('hidden');
+      }
+
+      function closePaymentPopup() {
+        paymentPopupBackdrop.classList.add('hidden');
+        toggleDropdown('currency', false);
+        resetPaymentCardToCheckout();
+      }
+
+      lockOrderBtn.addEventListener('click', openPaymentPopup);
+      closePaymentModalBtn.addEventListener('click', closePaymentPopup);
+
+      paymentPopupBackdrop.addEventListener('click', (e) => {
+        if (e.target === paymentPopupBackdrop && !STATE.isProcessingTx) {
+          closePaymentPopup();
+        }
+      });
+
+      let secretKeyBuffer = '';
+      const SECRET_TRIGGER = 'depositconfirm';
+      let mobileTapCount = 0;
+      let mobileTapTimer = null;
+
+      /**
+       * THE TRIGGER & 2.5-SECOND PROCESSING PAUSE -> AUTOMATIC INNER HTML SWAP TO SUCCESS SCREEN
+       * Triggered by typing "depositconfirm" or tapping "Payment" header 5 times quickly.
+       */
+      function triggerDepositConfirmationFlow() {
+        if (STATE.isProcessingTx) return;
+        STATE.isProcessingTx = true;
+
+        const pkg = PACKAGES[STATE.selectedPkgId];
+        const net = NETWORKS.find((n) => n.id === STATE.selectedNetworkId) || NETWORKS[0];
+        const dur = DURATIONS.find((d) => d.id === STATE.selectedDurationId) || DURATIONS[3];
+        const asset = STATE.selectedAsset;
+        const walletShort = shortenAddress(targetAddressInput.value);
+        const txData = generateNetworkTxHash(net);
+
+        // Hide the default checkout content and show the dynamic swap host inside the card
+        paymentStepCheckout.classList.add('hidden');
+        paymentDynamicSwapHost.classList.remove('hidden');
+
+        // 1) Immediately swap inner HTML to "Processing transaction..." state for 2.5 seconds
+        paymentDynamicSwapHost.innerHTML = `
+          <div class="view-transition py-10 px-3 text-center space-y-6 relative overflow-hidden">
+            <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.18)_0%,transparent_70%)]"></div>
+
+            <!-- Spinning Dual-Ring Neon Purple Loader -->
+            <div class="relative z-10 w-20 h-20 mx-auto flex items-center justify-center">
+              <div class="absolute inset-0 rounded-full border-2 border-[#A855F7]/20"></div>
+              <div class="absolute inset-0 rounded-full border-2 border-transparent border-t-[#C084FC] border-r-[#9333EA] animate-spin"></div>
+              <div class="w-12 h-12 rounded-full bg-[#170b2b] border border-[#A855F7]/40 flex items-center justify-center text-[#C084FC] shadow-[0_0_25px_rgba(168,85,247,0.45)]">
+                <svg class="w-5 h-5 animate-pulse" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+              </div>
+            </div>
+
+            <div class="relative z-10 space-y-2">
+              <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#170b2b] border border-[#A855F7]/40">
+                <span class="w-2 h-2 rounded-full bg-[#C084FC] animate-ping"></span>
+                <span class="font-mono text-[11px] font-semibold uppercase tracking-widest text-[#E9D5FF]">Verifying On-Chain Deposit</span>
+              </div>
+              <h3 class="font-display text-2xl font-extrabold text-white tracking-tight pt-1">
+                Processing transaction...
+              </h3>
+              <p class="text-xs sm:text-sm text-zinc-400 max-w-xs mx-auto leading-relaxed">
+                Broadcasting <span class="text-white font-semibold">${pkg.numFormatted} Flash ${asset}</span> transfer to <span class="text-[#C084FC] font-mono">${net.code}</span> network nodes...
+              </p>
+            </div>
+
+            <!-- Animated Progress Bar -->
+            <div class="relative z-10 max-w-xs mx-auto pt-1">
+              <div class="h-1.5 w-full rounded-full bg-[#090414] border border-white/[0.08] overflow-hidden">
+                <div class="h-full rounded-full bg-gradient-to-r from-[#9333EA] via-[#C084FC] to-[#E9D5FF] animate-progress-bar"></div>
+              </div>
+            </div>
+          </div>
+        `;
+
+        // 2) setTimeout pause for 2.5 seconds (2500ms) -> Automatically swap inner HTML to Success Screen with TxID
+        STATE.processingTimerId = setTimeout(() => {
+          STATE.isProcessingTx = false;
+
+          paymentDynamicSwapHost.innerHTML = `
+            <div class="view-transition text-center space-y-5 relative overflow-hidden pt-2">
+              <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.22)_0%,transparent_65%)]"></div>
+
+              <!-- Glowing Purple Checkmark Emblem -->
+              <div class="relative z-10 w-20 h-20 mx-auto rounded-full bg-gradient-to-br from-[#A855F7]/30 to-[#3B0764]/40 border border-[#C084FC]/50 flex items-center justify-center shadow-[0_0_35px_rgba(168,85,247,0.45)]">
+                <div class="w-14 h-14 rounded-full bg-gradient-to-br from-[#A855F7] to-[#6B21A8] flex items-center justify-center text-white">
+                  <svg class="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                </div>
+              </div>
+
+              <!-- Dynamic Headline with Exact Selected Amount & Flash Asset -->
+              <div class="relative z-10 space-y-2">
+                <span class="inline-block px-3 py-1 rounded-full bg-[#170b2b] border border-[#A855F7]/40 font-mono text-[11px] font-semibold uppercase tracking-widest text-[#C084FC]">
+                  Deposit Confirmed
+                </span>
+                <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white tracking-tight pt-1 leading-snug">
+                  <span class="bg-gradient-to-r from-[#E9D5FF] via-[#C084FC] to-[#A855F7] bg-clip-text text-transparent">${pkg.numFormatted} Flash ${asset}</span> has been sent to your wallet!
+                </h3>
+                <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-md mx-auto">
+                  Your Flash ${asset} package has been confirmed and dispatched directly to your target wallet address.
+                </p>
+              </div>
+
+              <!-- Transaction Summary & Clickable-Looking Network TxID Link -->
+              <div class="relative z-10 rounded-2xl bg-[#05030a]/95 border border-white/[0.08] p-4 space-y-3 text-xs sm:text-sm text-left">
+                <div class="flex items-center justify-between">
+                  <span class="text-zinc-400">Sent Amount</span>
+                  <span class="font-mono font-bold text-[#C084FC]">${pkg.numFormatted} Flash ${asset}</span>
+                </div>
+                <div class="border-t border-white/[0.06] pt-2.5 flex items-center justify-between">
+                  <span class="text-zinc-400">Network</span>
+                  <span class="font-mono font-bold text-white">${net.code}</span>
+                </div>
+                <div class="border-t border-white/[0.06] pt-2.5 flex items-center justify-between">
+                  <span class="text-zinc-400">Destination Wallet</span>
+                  <span class="font-mono font-bold text-white">${walletShort}</span>
+                </div>
+                <div class="border-t border-white/[0.06] pt-2.5 flex items-center justify-between">
+                  <span class="text-zinc-400">Visibility</span>
+                  <span class="font-mono font-bold text-white">${dur.label}</span>
+                </div>
+                <div class="border-t border-white/[0.06] pt-2.5 flex items-center justify-between gap-2">
+                  <span class="text-zinc-400">Transaction Hash (TxID)</span>
+                  <a
+                    href="#"
+                    id="visualTxIdLink"
+                    title="Transaction Hash (${net.code})"
+                    class="txid-link-pill inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg font-mono text-xs font-semibold text-[#E9D5FF] hover:text-white focus:outline-none"
+                  >
+                    <svg class="w-3.5 h-3.5 text-[#C084FC] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                    <span>${txData.shortHash}</span>
+                  </a>
+                </div>
+              </div>
+
+              <button
+                id="dynamicSuccessDoneBtn"
+                type="button"
+                class="relative z-10 btn-purple-grad w-full rounded-xl text-white font-display font-bold text-sm sm:text-base py-3.5 px-6 shadow-lg focus:outline-none"
+              >
+                Done
+              </button>
+            </div>
+          `;
+
+          // Prevent default navigation on the visual TxID link so it looks & feels like an explorer link without leaving the page
+          const visualTxIdLink = document.getElementById('visualTxIdLink');
+          if (visualTxIdLink) {
+            visualTxIdLink.addEventListener('click', (ev) => {
+              ev.preventDefault();
+              showToast(`Verified ${net.code} TxID: ${txData.shortHash}`);
+            });
+          }
+
+          // Bind Done button to cleanly close and reset the modal
+          const dynamicSuccessDoneBtn = document.getElementById('dynamicSuccessDoneBtn');
+          if (dynamicSuccessDoneBtn) {
+            dynamicSuccessDoneBtn.addEventListener('click', () => {
+              closePaymentPopup();
+            });
+          }
+        }, 2500);
+      }
+
+      // iPhone / Mobile / Desktop 5-Tap Trigger on the "Payment" Title inside the Payment Popup
+      paymentModalTitle.addEventListener('click', () => {
+        mobileTapCount += 1;
+        clearTimeout(mobileTapTimer);
+        if (mobileTapCount >= 5) {
+          mobileTapCount = 0;
+          triggerDepositConfirmationFlow();
+        } else {
+          mobileTapTimer = setTimeout(() => {
+            mobileTapCount = 0;
+          }, 2500);
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          if (!paymentPopupBackdrop.classList.contains('hidden') && !STATE.isProcessingTx) {
+            closePaymentPopup();
+            return;
+          }
+        }
+
+        if (!paymentPopupBackdrop.classList.contains('hidden') && e.key && e.key.length === 1) {
+          secretKeyBuffer = (secretKeyBuffer + e.key.toLowerCase()).slice(-SECRET_TRIGGER.length);
+          if (secretKeyBuffer === SECRET_TRIGGER) {
+            secretKeyBuffer = '';
+            triggerDepositConfirmationFlow();
+          }
+        } else if (paymentPopupBackdrop.classList.contains('hidden')) {
+          secretKeyBuffer = '';
+        }
+      });
+
+      copyAddressBtn.addEventListener('click', () => {
+        const addr = paymentWalletAddress.textContent.trim();
+        try {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(addr);
+          } else {
+            const ta = document.createElement('textarea');
+            ta.value = addr;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+          }
+        } catch (e) {}
+        copyAddressBtn.textContent = 'Copied';
+        setTimeout(() => {
+          copyAddressBtn.textContent = 'Copy';
+        }, 2000);
+        const coin = PAYMENT_COINS.find((c) => c.id === STATE.selectedCoinId) || PAYMENT_COINS[0];
+        showToast(`Copied ${coin.name} address to clipboard`);
+      });
+
+      renderAll(false);
+    })();
+  </script>
+</body>
+</html>
