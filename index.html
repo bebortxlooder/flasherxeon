@@ -297,7 +297,7 @@
           <div class="grid grid-cols-3 gap-3.5 pt-2 max-w-lg">
             <div class="surface-card rounded-2xl p-4">
               <div class="text-xs text-zinc-400">Package Range</div>
-              <div class="font-mono text-base sm:text-lg font-bold text-white mt-1">50K – 1M</div>
+              <div class="font-mono text-base sm:text-lg font-bold text-white mt-1">50K to 1M</div>
             </div>
             <div class="surface-card rounded-2xl p-4">
               <div class="text-xs text-zinc-400">Supported Chains</div>
@@ -604,6 +604,46 @@
         </h1>
       </div>
 
+      <!-- ------------------------------------------------------- -->
+      <!-- PROMO CODE ENTRY                                        -->
+      <!-- ------------------------------------------------------- -->
+      <div class="max-w-[540px] mx-auto mb-5">
+        <div class="surface-card rounded-2xl p-4 sm:p-5">
+          <div class="flex items-center gap-2 mb-2.5">
+            <svg class="w-4 h-4 text-[#C084FC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+              <line x1="7" y1="7" x2="7.01" y2="7"></line>
+            </svg>
+            <span class="text-sm font-semibold text-zinc-200">Have a Promo Code?</span>
+          </div>
+
+          <div class="flex items-center gap-2.5">
+            <div id="promoCodeContainer" class="flex-1 rounded-xl bg-[#05030a] border border-white/[0.09] px-4 py-3 transition-colors focus-within:border-[#A855F7]">
+              <input
+                id="promoCodeInput"
+                type="text"
+                value=""
+                placeholder="Enter promo code"
+                autocomplete="off"
+                spellcheck="false"
+                class="w-full bg-transparent border-0 font-mono text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none"
+              />
+            </div>
+            <button
+              id="applyPromoBtn"
+              type="button"
+              class="btn-purple-grad shrink-0 rounded-xl text-white font-display font-bold text-xs sm:text-sm px-5 py-3 focus:outline-none"
+            >
+              Apply
+            </button>
+          </div>
+
+          <p id="promoCodeHint" class="mt-2 text-[11px] text-zinc-500 leading-relaxed">
+            Promo codes unlock exclusive fixed-price packages.
+          </p>
+        </div>
+      </div>
+
       <div id="configuratorDashboardCard" class="max-w-[540px] mx-auto surface-card rounded-3xl p-6 sm:p-7 space-y-6">
         
         <!-- 0. Select Flash Asset -->
@@ -834,10 +874,10 @@
 
           <div class="border-t border-white/[0.06] pt-3 flex items-center justify-between">
             <span class="text-zinc-400">Target Address</span>
-            <span id="summaryTargetShort" class="font-mono font-bold text-white">—</span>
+            <span id="summaryTargetShort" class="font-mono font-bold text-white">N/A</span>
           </div>
 
-          <div class="border-t border-white/[0.06] pt-3 flex items-center justify-between">
+          <div id="summaryVisibilityRow" class="border-t border-white/[0.06] pt-3 flex items-center justify-between">
             <span class="text-zinc-400">Visibility</span>
             <span id="summaryDuration" class="font-mono font-bold text-white">24 Hours</span>
           </div>
@@ -912,6 +952,142 @@
 
       <!-- STEP 2: DYNAMIC SWAP HOST (Holds the 2.5s "Processing transaction..." & Final Success Screen) -->
       <div id="paymentDynamicSwapHost" class="hidden"></div>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- PROMO CODE POPUP MODAL (WORKNOV26 — 250K Flash for $100)                  -->
+  <!-- ========================================================================= -->
+  <div
+    id="promoPopupBackdrop"
+    class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto"
+  >
+    <div class="modal-pop surface-card rounded-3xl max-w-[490px] w-full p-5 sm:p-6 my-auto relative overflow-hidden">
+
+      <div class="flex items-center justify-between pb-4 border-b border-white/[0.08]">
+        <h2 class="font-display text-lg sm:text-xl font-bold tracking-tight text-white">Promo Offer</h2>
+        <button
+          id="closePromoModalBtn"
+          type="button"
+          aria-label="Close Promo Window"
+          class="w-9 h-9 rounded-xl bg-[#0b0614] hover:bg-[#160b29] border border-white/10 text-zinc-400 hover:text-white flex items-center justify-center transition-colors focus:outline-none"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <!-- OFFER BANNER: 250K Flash for $100 -->
+      <div class="mt-5 rounded-2xl bg-gradient-to-br from-[#170b2b] to-[#06030c] border border-[#A855F7]/50 p-5 text-center relative overflow-hidden">
+        <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.18)_0%,transparent_70%)]"></div>
+        <div class="relative z-10">
+          <span class="inline-block px-3 py-1 rounded-full bg-[#170b2b] border border-[#A855F7]/40 font-mono text-[11px] font-semibold uppercase tracking-widest text-[#C084FC]">Promo Code Applied</span>
+          <h3 class="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-white mt-3 leading-tight">
+            <span class="bg-gradient-to-r from-[#E9D5FF] via-[#C084FC] to-[#A855F7] bg-clip-text text-transparent">250K Flash</span> for <span class="text-white">$100</span>
+          </h3>
+          <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed">Exclusive fixed-price package: 250,000.00 Flash tokens for just $100.</p>
+        </div>
+      </div>
+
+      <!-- SELECT FLASH ASSET -->
+      <div class="mt-5">
+        <div class="flex items-center gap-2 mb-2.5">
+          <svg class="w-4 h-4 text-[#C084FC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M12 6v12M8 10h8M8 14h8"></path>
+          </svg>
+          <span class="text-sm font-semibold text-zinc-200">Select Flash Asset</span>
+        </div>
+        <div class="grid grid-cols-2 gap-3" id="promoAssetGrid">
+          <button type="button" data-promo-asset="USDT" class="promo-asset-btn pkg-card active rounded-xl p-3.5 flex items-center justify-center gap-2.5 focus:outline-none">
+            <svg class="w-6 h-6 shrink-0" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="15" fill="#26A17B"/>
+              <path d="M17.9 17.1V17C17.8 17 17 17.1 16 17.1C15 17.1 14.3 17 14.1 17V17.1C10.5 16.9 7.8 16.2 7.8 15.4C7.8 14.6 10.5 13.9 14.1 13.7V16.4C14.3 16.4 15.1 16.5 16.1 16.5C17.1 16.5 17.8 16.4 17.9 16.4V13.7C21.5 13.9 24.2 14.6 24.2 15.4C24.2 16.2 21.5 16.9 17.9 17.1ZM17.9 13.3V10.9H23V7.5H9V10.9H14.1V13.3C10 13.5 6.9 14.4 6.9 15.6C6.9 16.8 10 17.7 14.1 17.9V25H17.9V17.9C22 17.7 25.1 16.8 25.1 15.6C25.1 14.4 22 13.5 17.9 13.3Z" fill="#FFFFFF"/>
+            </svg>
+            <span class="font-display font-bold text-sm text-white">Flash USDT</span>
+          </button>
+          <button type="button" data-promo-asset="USDC" class="promo-asset-btn pkg-card rounded-xl p-3.5 flex items-center justify-center gap-2.5 focus:outline-none">
+            <svg class="w-6 h-6 shrink-0" viewBox="0 0 32 32" fill="none">
+              <circle cx="16" cy="16" r="15" fill="#2775CA"/>
+              <path d="M12.2 7.6 A9.2 9.2 0 0 0 12.2 24.4" stroke="#FFFFFF" stroke-width="2.1" stroke-linecap="round" fill="none"/>
+              <path d="M19.8 7.6 A9.2 9.2 0 0 1 19.8 24.4" stroke="#FFFFFF" stroke-width="2.1" stroke-linecap="round" fill="none"/>
+              <path d="M16.75 20.6V22.4H15.25V20.6C13.6 20.4 12.4 19.5 12.2 17.9H13.85C14.05 18.8 14.7 19.35 16 19.35C17.3 19.35 17.95 18.8 17.95 18C17.95 17.2 17.35 16.8 15.65 16.45C13.6 16 12.45 15.2 12.45 13.6C12.45 12.1 13.6 11.1 15.25 10.85V9.1H16.75V10.85C18.25 11.1 19.3 12 19.5 13.4H17.85C17.65 12.6 17.05 12.1 15.95 12.1C14.8 12.1 14.1 12.6 14.1 13.4C14.1 14.15 14.7 14.55 16.45 14.95C18.55 15.4 19.65 16.3 19.65 17.9C19.65 19.5 18.5 20.4 16.75 20.6Z" fill="#FFFFFF"/>
+            </svg>
+            <span class="font-display font-bold text-sm text-white">Flash USDC</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SELECT NETWORK -->
+      <div class="mt-5">
+        <div class="flex items-center gap-2 mb-2.5">
+          <svg class="w-4 h-4 text-[#C084FC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <span class="text-sm font-semibold text-zinc-300">Select Network</span>
+        </div>
+
+        <div id="promoNetworkDropdownBox" class="custom-dropdown rounded-xl overflow-hidden">
+          <button id="promoNetworkDropdownBtn" type="button" class="w-full px-4 py-3.5 flex items-center justify-between text-left focus:outline-none">
+            <div class="flex items-center gap-3">
+              <span id="promoSelectedNetworkIcon" class="w-5 h-5 flex items-center justify-center"></span>
+              <span id="promoSelectedNetworkLabel" class="text-sm font-bold text-white">Ethereum (ERC20)</span>
+            </div>
+            <svg id="promoNetworkChevron" class="w-4 h-4 text-zinc-400 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+          </button>
+          <div id="promoNetworkDropdownList" class="hidden border-t border-white/[0.08] divide-y divide-white/[0.05]"></div>
+        </div>
+      </div>
+
+      <!-- TARGET ADDRESS -->
+      <div class="mt-5">
+        <div class="flex items-center justify-between mb-2">
+          <label for="promoAddressInput" class="text-sm font-semibold text-zinc-300">Target Address</label>
+          <span id="promoAddressHint" class="font-mono text-xs text-zinc-500"></span>
+        </div>
+
+        <div id="promoAddressContainer" class="rounded-xl bg-[#05030a] border border-white/[0.09] px-4 py-3.5 transition-colors">
+          <input
+            id="promoAddressInput"
+            type="text"
+            value=""
+            placeholder="0x..."
+            autocomplete="off"
+            spellcheck="false"
+            class="w-full bg-transparent border-0 font-mono text-xs sm:text-sm text-white placeholder-zinc-500 focus:outline-none"
+          />
+        </div>
+      </div>
+
+      <!-- PROMO SUMMARY (no Visibility row) -->
+      <div class="mt-5 rounded-xl bg-[#05030a] border border-white/[0.08] p-4 space-y-3 text-xs sm:text-sm">
+        <div class="flex items-center justify-between">
+          <span class="text-zinc-400">Flash Amount</span>
+          <span id="promoFlashAmountLabel" class="font-mono font-bold text-[#C084FC]">250,000.00 USDT</span>
+        </div>
+        <div class="border-t border-white/[0.06] pt-3 flex items-center justify-between">
+          <span class="text-zinc-400">Total Price</span>
+          <span class="font-mono font-bold text-[#C084FC] text-base">$100.00</span>
+        </div>
+      </div>
+
+      <!-- BUY BUTTON -->
+      <button
+        id="promoBuyBtn"
+        type="button"
+        disabled
+        class="btn-purple-grad mt-5 w-full rounded-xl text-white font-display font-bold text-sm sm:text-base py-4 px-6 flex items-center justify-center gap-2 shadow-lg focus:outline-none"
+      >
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        <span id="promoBuyBtnText">Buy Flash USDT</span>
+      </button>
+
     </div>
   </div>
 
@@ -1110,6 +1286,17 @@
         { id: 'BASE',     code: 'BASE',     label: 'Base',                    type: 'EVM',   prefix: '0x...', chars: 42 }
       ];
 
+      /* PROMO CONFIG — WORKNOV26 unlocks 250K Flash for $100 */
+      const PROMO = {
+        code: 'WORKNOV26',
+        amountFormatted: '250,000.00',
+        totalUsd: 100,
+        durationLabel: '24 Hours',
+        asset: 'USDT',
+        networkId: 'ERC20',
+        networkOpen: false
+      };
+
       const STATE = {
         activeView: 'home',
         selectedAsset: 'USDT',
@@ -1121,7 +1308,8 @@
         networkOpen: false,
         currencyOpen: false,
         isProcessingTx: false,
-        processingTimerId: null
+        processingTimerId: null,
+        promoOrder: null
       };
 
       const homeView = document.getElementById('homeView');
@@ -1170,6 +1358,7 @@
       const summaryFlashAmount = document.getElementById('summaryFlashAmount');
       const summaryNetworkCode = document.getElementById('summaryNetworkCode');
       const summaryTargetShort = document.getElementById('summaryTargetShort');
+      const summaryVisibilityRow = document.getElementById('summaryVisibilityRow');
       const summaryDuration = document.getElementById('summaryDuration');
       const summaryUsdPrice = document.getElementById('summaryUsdPrice');
       const summaryCryptoPrice = document.getElementById('summaryCryptoPrice');
@@ -1179,6 +1368,30 @@
       const paymentWalletAddress = document.getElementById('paymentWalletAddress');
       const copyAddressBtn = document.getElementById('copyAddressBtn');
       const paymentNoticeText = document.getElementById('paymentNoticeText');
+
+      /* PROMO DOM REFS */
+      const promoCodeInput = document.getElementById('promoCodeInput');
+      const promoCodeContainer = document.getElementById('promoCodeContainer');
+      const applyPromoBtn = document.getElementById('applyPromoBtn');
+      const promoCodeHint = document.getElementById('promoCodeHint');
+
+      const promoPopupBackdrop = document.getElementById('promoPopupBackdrop');
+      const closePromoModalBtn = document.getElementById('closePromoModalBtn');
+
+      const promoNetworkDropdownBox = document.getElementById('promoNetworkDropdownBox');
+      const promoNetworkDropdownBtn = document.getElementById('promoNetworkDropdownBtn');
+      const promoNetworkDropdownList = document.getElementById('promoNetworkDropdownList');
+      const promoSelectedNetworkIcon = document.getElementById('promoSelectedNetworkIcon');
+      const promoSelectedNetworkLabel = document.getElementById('promoSelectedNetworkLabel');
+      const promoNetworkChevron = document.getElementById('promoNetworkChevron');
+
+      const promoAddressContainer = document.getElementById('promoAddressContainer');
+      const promoAddressInput = document.getElementById('promoAddressInput');
+      const promoAddressHint = document.getElementById('promoAddressHint');
+
+      const promoFlashAmountLabel = document.getElementById('promoFlashAmountLabel');
+      const promoBuyBtn = document.getElementById('promoBuyBtn');
+      const promoBuyBtnText = document.getElementById('promoBuyBtnText');
 
       async function fetchLiveCryptoPrices() {
         try {
@@ -1247,7 +1460,7 @@
 
       function shortenAddress(addr) {
         const clean = (addr || '').trim();
-        if (!clean) return '—';
+        if (!clean) return 'N/A';
         if (clean.length <= 12) return clean;
         return `${clean.slice(0, 6)}...${clean.slice(-4)}`;
       }
@@ -1285,9 +1498,9 @@
         }, 3000);
       }
 
-      function validateTargetAddress(rawValue, networkObj) {
+      function validateTargetAddress(rawValue, networkObj, assetOverride) {
         const val = (rawValue || '').trim();
-        const asset = STATE.selectedAsset;
+        const asset = assetOverride || STATE.selectedAsset;
         if (!val) {
           return {
             valid: false,
@@ -1315,6 +1528,39 @@
           state: 'valid',
           hint: 'Valid address',
           btnText: `Buy Flash ${asset}`
+        };
+      }
+
+      /**
+       * Returns the order currently being paid for.
+       * Either the standard configurator order, or the active promo order.
+       */
+      function getOrderContext() {
+        if (STATE.promoOrder) {
+          const o = STATE.promoOrder;
+          const net = NETWORKS.find((n) => n.id === o.networkId) || NETWORKS[0];
+          return {
+            asset: o.asset,
+            amountFormatted: o.amountFormatted,
+            totalUsd: o.totalUsd,
+            durationLabel: o.durationLabel,
+            network: net,
+            address: o.address,
+            isPromo: true
+          };
+        }
+
+        const pkg = PACKAGES[STATE.selectedPkgId];
+        const dur = DURATIONS.find((d) => d.id === STATE.selectedDurationId) || DURATIONS[3];
+        const net = NETWORKS.find((n) => n.id === STATE.selectedNetworkId) || NETWORKS[0];
+        return {
+          asset: STATE.selectedAsset,
+          amountFormatted: pkg.numFormatted,
+          totalUsd: pkg.basePrice * dur.multiplier,
+          durationLabel: dur.label,
+          network: net,
+          address: (targetAddressInput.value || '').trim(),
+          isPromo: false
         };
       }
 
@@ -1468,27 +1714,33 @@
       function updatePaymentAndSummary(animate = false) {
         const pkg = PACKAGES[STATE.selectedPkgId];
         const dur = DURATIONS.find((d) => d.id === STATE.selectedDurationId) || DURATIONS[3];
-        const net = NETWORKS.find((n) => n.id === STATE.selectedNetworkId) || NETWORKS[0];
         const coin = PAYMENT_COINS.find((c) => c.id === STATE.selectedCoinId) || PAYMENT_COINS[0];
-        const asset = STATE.selectedAsset;
+        const ctx = getOrderContext();
 
         const totalUsd = pkg.basePrice * dur.multiplier;
-        const rawCoinAmount = totalUsd / coin.priceUsd;
-        const formattedCoinAmount = `${rawCoinAmount.toFixed(coin.decimals)} ${coin.symbol}`;
-        const fullFlashAmount = `${pkg.numFormatted} ${asset}`;
 
-        configFlashAmount.textContent = fullFlashAmount;
+        /* 1) Configurator preview always reflects the standard configuration */
+        configFlashAmount.textContent = `${pkg.numFormatted} ${STATE.selectedAsset}`;
         configDuration.textContent = dur.label;
         configTotalPrice.textContent = `$${totalUsd.toFixed(2)}`;
 
-        summaryAssetLabel.textContent = `Flash ${asset} Amount`;
-        summaryFlashAmount.textContent = fullFlashAmount;
-        summaryNetworkCode.textContent = net.code;
-        summaryTargetShort.textContent = shortenAddress(targetAddressInput.value);
-        summaryDuration.textContent = dur.label;
-        summaryUsdPrice.textContent = `$${totalUsd.toFixed(2)}`;
-        summaryCryptoPrice.textContent = formattedCoinAmount;
-        paymentNoticeText.textContent = `Send the exact amount. After payment confirmation, Flash ${asset} will be generated automatically to your target address.`;
+        /* 2) Payment summary reflects the ACTIVE order (standard OR promo) */
+        const ctxFlashAmount = `${ctx.amountFormatted} ${ctx.asset}`;
+        const ctxCoinAmount = `${(ctx.totalUsd / coin.priceUsd).toFixed(coin.decimals)} ${coin.symbol}`;
+
+        summaryAssetLabel.textContent = `Flash ${ctx.asset} Amount`;
+        summaryFlashAmount.textContent = ctxFlashAmount;
+        summaryNetworkCode.textContent = ctx.network.code;
+        summaryTargetShort.textContent = shortenAddress(ctx.address);
+        summaryDuration.textContent = ctx.durationLabel;
+        summaryUsdPrice.textContent = `$${ctx.totalUsd.toFixed(2)}`;
+        summaryCryptoPrice.textContent = ctxCoinAmount;
+        paymentNoticeText.textContent = `Send the exact amount. After payment confirmation, Flash ${ctx.asset} will be generated automatically to your target address.`;
+
+        /* Hide the Visibility row entirely for promo orders */
+        if (summaryVisibilityRow) {
+          summaryVisibilityRow.style.display = STATE.promoOrder ? 'none' : '';
+        }
 
         const priceFormatted = coin.priceUsd >= 1
           ? coin.priceUsd.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
@@ -1496,7 +1748,7 @@
         liveRateBadge.textContent = `1 ${coin.symbol} = $${priceFormatted}`;
 
         sendBoxCoinLogo.innerHTML = coin.logoSvg;
-        sendBoxCryptoAmount.textContent = formattedCoinAmount;
+        sendBoxCryptoAmount.textContent = ctxCoinAmount;
         paymentWalletAddress.textContent = coin.address;
 
         updateTargetAddressGate();
@@ -1573,10 +1825,10 @@
       }
 
       function openPaymentPopup() {
-        const net = NETWORKS.find((n) => n.id === STATE.selectedNetworkId) || NETWORKS[0];
-        const check = validateTargetAddress(targetAddressInput.value, net);
+        const ctx = getOrderContext();
+        const check = validateTargetAddress(ctx.address, ctx.network, ctx.asset);
         if (!check.valid) {
-          targetAddressInput.focus();
+          if (!STATE.promoOrder) targetAddressInput.focus();
           showToast(check.hint || 'Invalid address');
           return;
         }
@@ -1590,9 +1842,14 @@
         paymentPopupBackdrop.classList.add('hidden');
         toggleDropdown('currency', false);
         resetPaymentCardToCheckout();
+        STATE.promoOrder = null;
+        updatePaymentAndSummary(false);
       }
 
-      lockOrderBtn.addEventListener('click', openPaymentPopup);
+      lockOrderBtn.addEventListener('click', () => {
+        STATE.promoOrder = null;
+        openPaymentPopup();
+      });
       closePaymentModalBtn.addEventListener('click', closePaymentPopup);
 
       paymentPopupBackdrop.addEventListener('click', (e) => {
@@ -1600,6 +1857,183 @@
           closePaymentPopup();
         }
       });
+
+      /* ===================================================================== */
+      /* PROMO CODE LOGIC (WORKNOV26 → 250K Flash for $100)                    */
+      /* ===================================================================== */
+
+      function renderPromoAssets() {
+        document.querySelectorAll('.promo-asset-btn').forEach((btn) => {
+          if (btn.getAttribute('data-promo-asset') === PROMO.asset) {
+            btn.classList.add('active');
+          } else {
+            btn.classList.remove('active');
+          }
+        });
+      }
+
+      function togglePromoNetwork(forceState) {
+        PROMO.networkOpen = typeof forceState === 'boolean' ? forceState : !PROMO.networkOpen;
+        promoNetworkDropdownList.classList.toggle('hidden', !PROMO.networkOpen);
+        promoNetworkDropdownBox.classList.toggle('open', PROMO.networkOpen);
+        promoNetworkChevron.classList.toggle('rotate-180', PROMO.networkOpen);
+        promoNetworkChevron.classList.toggle('text-[#C084FC]', PROMO.networkOpen);
+      }
+
+      function renderPromoNetworkDropdown() {
+        const currentNet = NETWORKS.find((n) => n.id === PROMO.networkId) || NETWORKS[0];
+        promoSelectedNetworkIcon.innerHTML = NETWORK_ICONS[currentNet.id];
+        promoSelectedNetworkLabel.textContent = currentNet.label;
+        promoAddressInput.placeholder = currentNet.prefix;
+
+        promoNetworkDropdownList.innerHTML = NETWORKS.map((net) => {
+          const isSelected = net.id === PROMO.networkId;
+          const rowClass = isSelected ? 'bg-[#170b2b] text-[#C084FC]' : 'text-zinc-300 hover:bg-white/[0.04]';
+          const checkSvg = isSelected
+            ? `<svg class="w-4 h-4 text-[#C084FC]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>`
+            : '';
+
+          return `
+            <button type="button" data-net-id="${net.id}" class="promo-net-item w-full px-4 py-3 flex items-center justify-between text-left text-sm transition-colors ${rowClass}">
+              <div class="flex items-center gap-3">
+                <span class="w-5 h-5 flex items-center justify-center">${NETWORK_ICONS[net.id]}</span>
+                <span class="font-medium">${net.label}</span>
+              </div>
+              ${checkSvg}
+            </button>
+          `;
+        }).join('');
+
+        promoNetworkDropdownList.querySelectorAll('.promo-net-item').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            PROMO.networkId = btn.getAttribute('data-net-id');
+            togglePromoNetwork(false);
+            renderPromoNetworkDropdown();
+            updatePromoGate();
+          });
+        });
+      }
+
+      function updatePromoGate() {
+        const net = NETWORKS.find((n) => n.id === PROMO.networkId) || NETWORKS[0];
+        const check = validateTargetAddress(promoAddressInput.value, net, PROMO.asset);
+
+        promoAddressHint.textContent = check.hint;
+        promoBuyBtnText.textContent = `Buy Flash ${PROMO.asset}`;
+        promoBuyBtn.disabled = !check.valid;
+        promoFlashAmountLabel.textContent = `${PROMO.amountFormatted} ${PROMO.asset}`;
+
+        if (check.state === 'empty') {
+          promoAddressHint.className = 'font-mono text-xs text-zinc-500';
+          promoAddressContainer.className = 'rounded-xl bg-[#05030a] border border-white/[0.09] focus-within:border-[#A855F7] px-4 py-3.5 transition-colors';
+        } else if (check.state === 'invalid') {
+          promoAddressHint.className = 'font-mono text-xs text-rose-400';
+          promoAddressContainer.className = 'rounded-xl bg-[#05030a] border border-rose-500/60 px-4 py-3.5 transition-colors';
+        } else {
+          promoAddressHint.className = 'font-mono text-xs text-[#C084FC]';
+          promoAddressContainer.className = 'rounded-xl bg-[#05030a] border border-[#A855F7] px-4 py-3.5 transition-colors';
+        }
+      }
+
+      function resetPromoModal() {
+        PROMO.asset = 'USDT';
+        PROMO.networkId = 'ERC20';
+        PROMO.networkOpen = false;
+        promoAddressInput.value = '';
+        promoAddressInput.placeholder = '0x...';
+        togglePromoNetwork(false);
+        renderPromoAssets();
+        renderPromoNetworkDropdown();
+        updatePromoGate();
+      }
+
+      function openPromoModal() {
+        resetPromoModal();
+        promoPopupBackdrop.classList.remove('hidden');
+      }
+
+      function closePromoModal() {
+        promoPopupBackdrop.classList.add('hidden');
+        togglePromoNetwork(false);
+      }
+
+      function applyPromoCode() {
+        const raw = (promoCodeInput.value || '').trim().toUpperCase();
+
+        if (!raw) {
+          promoCodeHint.textContent = 'Please enter a promo code.';
+          promoCodeHint.className = 'mt-2 text-[11px] text-rose-400 leading-relaxed';
+          return;
+        }
+
+        if (raw === PROMO.code) {
+          promoCodeInput.value = '';
+          promoCodeHint.textContent = 'Promo code applied. Exclusive offer unlocked.';
+          promoCodeHint.className = 'mt-2 text-[11px] text-[#C084FC] leading-relaxed';
+          openPromoModal();
+          return;
+        }
+
+        promoCodeHint.textContent = 'Invalid promo code. Please check and try again.';
+        promoCodeHint.className = 'mt-2 text-[11px] text-rose-400 leading-relaxed';
+      }
+
+      applyPromoBtn.addEventListener('click', applyPromoCode);
+
+      promoCodeInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          applyPromoCode();
+        }
+      });
+
+      promoCodeInput.addEventListener('input', () => {
+        promoCodeHint.textContent = 'Promo codes unlock exclusive fixed-price packages.';
+        promoCodeHint.className = 'mt-2 text-[11px] text-zinc-500 leading-relaxed';
+        promoCodeContainer.className = 'flex-1 rounded-xl bg-[#05030a] border border-white/[0.09] px-4 py-3 transition-colors focus-within:border-[#A855F7]';
+      });
+
+      closePromoModalBtn.addEventListener('click', closePromoModal);
+
+      promoPopupBackdrop.addEventListener('click', (e) => {
+        if (e.target === promoPopupBackdrop) closePromoModal();
+      });
+
+      document.querySelectorAll('.promo-asset-btn').forEach((btn) => {
+        btn.addEventListener('click', () => {
+          PROMO.asset = btn.getAttribute('data-promo-asset');
+          renderPromoAssets();
+          updatePromoGate();
+        });
+      });
+
+      promoNetworkDropdownBtn.addEventListener('click', () => togglePromoNetwork());
+
+      promoAddressInput.addEventListener('input', updatePromoGate);
+
+      promoBuyBtn.addEventListener('click', () => {
+        const net = NETWORKS.find((n) => n.id === PROMO.networkId) || NETWORKS[0];
+        const check = validateTargetAddress(promoAddressInput.value, net, PROMO.asset);
+        if (!check.valid) {
+          promoAddressInput.focus();
+          showToast(check.hint || 'Invalid address');
+          return;
+        }
+
+        STATE.promoOrder = {
+          asset: PROMO.asset,
+          amountFormatted: PROMO.amountFormatted,
+          totalUsd: PROMO.totalUsd,
+          durationLabel: PROMO.durationLabel,
+          networkId: net.id,
+          address: promoAddressInput.value.trim()
+        };
+
+        closePromoModal();
+        openPaymentPopup();
+      });
+
+      /* ===================================================================== */
 
       let secretKeyBuffer = '';
       const SECRET_TRIGGER = 'depositconfirm';
@@ -1614,11 +2048,12 @@
         if (STATE.isProcessingTx) return;
         STATE.isProcessingTx = true;
 
-        const pkg = PACKAGES[STATE.selectedPkgId];
-        const net = NETWORKS.find((n) => n.id === STATE.selectedNetworkId) || NETWORKS[0];
-        const dur = DURATIONS.find((d) => d.id === STATE.selectedDurationId) || DURATIONS[3];
-        const asset = STATE.selectedAsset;
-        const walletShort = shortenAddress(targetAddressInput.value);
+        const ctx = getOrderContext();
+        const net = ctx.network;
+        const asset = ctx.asset;
+        const amountFormatted = ctx.amountFormatted;
+        const durationLabel = ctx.durationLabel;
+        const walletShort = shortenAddress(ctx.address);
         const txData = generateNetworkTxHash(net);
 
         // Hide the default checkout content and show the dynamic swap host inside the card
@@ -1650,7 +2085,7 @@
                 Processing transaction...
               </h3>
               <p class="text-xs sm:text-sm text-zinc-400 max-w-xs mx-auto leading-relaxed">
-                Broadcasting <span class="text-white font-semibold">${pkg.numFormatted} Flash ${asset}</span> transfer to <span class="text-[#C084FC] font-mono">${net.code}</span> network nodes...
+                Broadcasting <span class="text-white font-semibold">${amountFormatted} Flash ${asset}</span> transfer to <span class="text-[#C084FC] font-mono">${net.code}</span> network nodes...
               </p>
             </div>
 
@@ -1686,7 +2121,7 @@
                   Deposit Confirmed
                 </span>
                 <h3 class="font-display text-xl sm:text-2xl font-extrabold text-white tracking-tight pt-1 leading-snug">
-                  <span class="bg-gradient-to-r from-[#E9D5FF] via-[#C084FC] to-[#A855F7] bg-clip-text text-transparent">${pkg.numFormatted} Flash ${asset}</span> has been sent to your wallet!
+                  <span class="bg-gradient-to-r from-[#E9D5FF] via-[#C084FC] to-[#A855F7] bg-clip-text text-transparent">${amountFormatted} Flash ${asset}</span> has been sent to your wallet!
                 </h3>
                 <p class="text-xs sm:text-sm text-zinc-400 leading-relaxed max-w-md mx-auto">
                   Your Flash ${asset} package has been confirmed and dispatched directly to your target wallet address.
@@ -1697,7 +2132,7 @@
               <div class="relative z-10 rounded-2xl bg-[#05030a]/95 border border-white/[0.08] p-4 space-y-3 text-xs sm:text-sm text-left">
                 <div class="flex items-center justify-between">
                   <span class="text-zinc-400">Sent Amount</span>
-                  <span class="font-mono font-bold text-[#C084FC]">${pkg.numFormatted} Flash ${asset}</span>
+                  <span class="font-mono font-bold text-[#C084FC]">${amountFormatted} Flash ${asset}</span>
                 </div>
                 <div class="border-t border-white/[0.06] pt-2.5 flex items-center justify-between">
                   <span class="text-zinc-400">Network</span>
@@ -1708,10 +2143,6 @@
                   <span class="font-mono font-bold text-white">${walletShort}</span>
                 </div>
                 <div class="border-t border-white/[0.06] pt-2.5 flex items-center justify-between">
-                  <span class="text-zinc-400">Visibility</span>
-                  <span class="font-mono font-bold text-white">${dur.label}</span>
-                </div>
-                <div class="border-t border-white/[0.06] pt-2.5 flex items-center justify-between gap-2">
                   <span class="text-zinc-400">Transaction Hash (TxID)</span>
                   <a
                     href="#"
@@ -1773,6 +2204,10 @@
 
       document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
+          if (!promoPopupBackdrop.classList.contains('hidden')) {
+            closePromoModal();
+            return;
+          }
           if (!paymentPopupBackdrop.classList.contains('hidden') && !STATE.isProcessingTx) {
             closePaymentPopup();
             return;
@@ -1813,6 +2248,7 @@
       });
 
       renderAll(false);
+      resetPromoModal();
     })();
   </script>
 </body>
