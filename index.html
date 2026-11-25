@@ -956,7 +956,7 @@
   </div>
 
   <!-- ========================================================================= -->
-  <!-- PROMO CODE POPUP MODAL (WORKNOV26 — 250K Flash for $100)                  -->
+  <!-- PROMO CODE POPUP MODAL (WORKNOV26 / OFFERNOV26)                           -->
   <!-- ========================================================================= -->
   <div
     id="promoPopupBackdrop"
@@ -979,15 +979,15 @@
         </button>
       </div>
 
-      <!-- OFFER BANNER: 250K Flash for $100 -->
+      <!-- OFFER BANNER (Dynamic) -->
       <div class="mt-5 rounded-2xl bg-gradient-to-br from-[#170b2b] to-[#06030c] border border-[#A855F7]/50 p-5 text-center relative overflow-hidden">
         <div class="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.18)_0%,transparent_70%)]"></div>
         <div class="relative z-10">
           <span class="inline-block px-3 py-1 rounded-full bg-[#170b2b] border border-[#A855F7]/40 font-mono text-[11px] font-semibold uppercase tracking-widest text-[#C084FC]">Promo Code Applied</span>
-          <h3 class="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-white mt-3 leading-tight">
+          <h3 id="promoBannerTitle" class="font-display text-2xl sm:text-3xl font-extrabold tracking-tight text-white mt-3 leading-tight">
             <span class="bg-gradient-to-r from-[#E9D5FF] via-[#C084FC] to-[#A855F7] bg-clip-text text-transparent">250K Flash</span> for <span class="text-white">$100</span>
           </h3>
-          <p class="text-xs text-zinc-400 mt-1.5 leading-relaxed">Exclusive fixed-price package: 250,000.00 Flash tokens for just $100.</p>
+          <p id="promoBannerDesc" class="text-xs text-zinc-400 mt-1.5 leading-relaxed">Exclusive fixed-price package: 250,000.00 Flash tokens for just $100.</p>
         </div>
       </div>
 
@@ -1071,7 +1071,7 @@
         </div>
         <div class="border-t border-white/[0.06] pt-3 flex items-center justify-between">
           <span class="text-zinc-400">Total Price</span>
-          <span class="font-mono font-bold text-[#C084FC] text-base">$100.00</span>
+          <span id="promoTotalPriceLabel" class="font-mono font-bold text-[#C084FC] text-base">$100.00</span>
         </div>
       </div>
 
@@ -1146,7 +1146,7 @@
           binanceSymbol: 'BTCUSDT',
           geckoId: 'bitcoin',
           priceUsd: 77793.76,
-          decimals: 6,
+          decimals: 8,
           address: '1Ms4T1zGo6HeTMHqy2petNER2nBqQDHcKJ',
           logoSvg: `<svg class="w-6 h-6" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" fill="#F7931A"/><path d="M22.1 14.1C22.4 12.1 20.9 11 18.8 10.3L19.5 7.6L17.8 7.2L17.2 9.8C16.7 9.7 16.3 9.6 15.8 9.5L16.5 6.8L14.8 6.4L14.1 9.1C13.7 9 13.4 8.9 13 8.8L10.7 8.2L10.2 10L11.4 10.3C12.1 10.5 12.2 11 12.2 11.4L11.2 15.2C11.3 15.2 11.5 15.3 11.6 15.4L11.2 15.3L9.9 20.6C9.7 20.9 9.3 21.2 8.7 21L7.5 20.7L6.9 22.7L9.1 23.3C9.5 23.4 9.9 23.5 10.3 23.6L9.6 26.4L11.3 26.8L12 24.1C12.5 24.2 12.9 24.3 13.4 24.4L12.7 27.1L14.4 27.5L15.1 24.8C18 25.3 20.1 25.1 21 22.5C21.7 20.4 21 19.2 19.5 18.4C20.6 18.1 21.8 17.4 22.1 14.1ZM18.3 21.3C17.8 23.4 14.2 22.3 13 22L13.9 18.3C15.1 18.6 18.9 19.2 18.3 21.3ZM18.9 14C18.4 15.9 15.4 14.9 14.4 14.7L15.2 11.3C16.2 11.5 19.4 12 18.9 14Z" fill="#FFFFFF"/></svg>`
         },
@@ -1190,7 +1190,7 @@
           binanceSymbol: 'ETHUSDT',
           geckoId: 'ethereum',
           priceUsd: 2288.96,
-          decimals: 5,
+          decimals: 6,
           address: '0xa058829743b13eb2414dc0788854f6eb3b93c5a0',
           logoSvg: `<svg class="w-6 h-6" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" fill="#1E2433"/><path d="M16 5L9.5 15.8L16 19.7L22.5 15.8L16 5Z" fill="#9AA3C2"/><path d="M16 5L22.5 15.8L16 19.7V5Z" fill="#687196"/><path d="M16 21L9.5 17.1L16 27L22.5 17.1L16 21Z" fill="#9AA3C2"/><path d="M16 27V21L22.5 17.1L16 27Z" fill="#4D557A"/></svg>`
         },
@@ -1201,7 +1201,7 @@
           binanceSymbol: 'DOGEUSDT',
           geckoId: 'dogecoin',
           priceUsd: 0.07292,
-          decimals: 2,
+          decimals: 4,
           address: 'D6TNR3hDyVbTWADxrwTFF4CBhwyhrT3GKX',
           logoSvg: `<svg class="w-6 h-6" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" fill="#C2A633"/><path d="M11 9H16.8C20.6 9 23 11.5 23 16C23 20.5 20.6 23 16.8 23H11V9ZM14.2 11.8V20.2H16.6C18.8 20.2 19.8 18.6 19.8 16C19.8 13.4 18.8 11.8 16.6 11.8H14.2ZM9.2 14.7H16.2V17.1H9.2V14.7Z" fill="#FFFFFF"/></svg>`
         },
@@ -1212,7 +1212,7 @@
           binanceSymbol: 'LTCUSDT',
           geckoId: 'litecoin',
           priceUsd: 68.50,
-          decimals: 4,
+          decimals: 6,
           address: 'LTZJv6ac3bqoCzzYb5S5vxHBKRY8fiiJVs',
           logoSvg: `<svg class="w-6 h-6" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" fill="#345D9D"/><path d="M12.2 19.2L10.5 19.8L11.2 17.2L12.9 16.6L15.1 8.5H19.1L16.7 17.4L18.8 16.6L18.1 19.2L16 19.9L15.1 23.2H22.3L21.5 26H10.4L12.2 19.2Z" fill="#FFFFFF"/></svg>`
         },
@@ -1223,7 +1223,7 @@
           binanceSymbol: 'SOLUSDT',
           geckoId: 'solana',
           priceUsd: 91.85,
-          decimals: 4,
+          decimals: 6,
           address: 'G7Zhmy5QRq5CS7cS5nernaB1HooFJdCsnWXjnRrbN44g',
           logoSvg: `<svg class="w-6 h-6" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="15" fill="#121722"/><path d="M9.5 20.5C9.8 20.2 10.2 20 10.6 20H23.2C23.8 20 24.1 20.7 23.7 21.1L21.5 23.5C21.2 23.8 20.8 24 20.4 24H7.8C7.2 24 6.9 23.3 7.3 22.9L9.5 20.5Z" fill="#14F195"/><path d="M9.5 8.5C9.8 8.2 10.2 8 10.6 8H23.2C23.8 8 24.1 8.7 23.7 9.1L21.5 11.5C21.2 11.8 20.8 12 20.4 12H7.8C7.2 12 6.9 11.3 7.3 10.9L9.5 8.5Z" fill="#9945FF"/><path d="M21.5 14.5C21.2 14.2 20.8 14 20.4 14H7.8C7.2 14 6.9 14.7 7.3 15.1L9.5 17.5C9.8 17.8 10.2 18 10.6 18H23.2C23.8 18 24.1 17.3 23.7 16.9L21.5 14.5Z" fill="#19FB9B"/></svg>`
         },
@@ -1286,11 +1286,28 @@
         { id: 'BASE',     code: 'BASE',     label: 'Base',                    type: 'EVM',   prefix: '0x...', chars: 42 }
       ];
 
-      /* PROMO CONFIG — WORKNOV26 unlocks 250K Flash for $100 */
+      /* PROMO CONFIGS — Support for multiple promo codes */
+      const PROMO_CONFIGS = {
+        'WORKNOV26': {
+          code: 'WORKNOV26',
+          amountFormatted: '250,000.00',
+          totalUsd: 100,
+          titleHtml: '<span class="bg-gradient-to-r from-[#E9D5FF] via-[#C084FC] to-[#A855F7] bg-clip-text text-transparent">250K Flash</span> for <span class="text-white">$100</span>',
+          descText: 'Exclusive fixed-price package: 250,000.00 Flash tokens for just $100.'
+        },
+        'OFFERNOV26': {
+          code: 'OFFERNOV26',
+          amountFormatted: '10,000.00',
+          totalUsd: 250,
+          titleHtml: '<span class="bg-gradient-to-r from-[#E9D5FF] via-[#C084FC] to-[#A855F7] bg-clip-text text-transparent">10K Flash</span> for <span class="text-white">$250</span>',
+          descText: 'Exclusive fixed-price package: 10,000.00 Flash tokens for just $250.'
+        }
+      };
+
       const PROMO = {
-        code: 'WORKNOV26',
-        amountFormatted: '250,000.00',
-        totalUsd: 100,
+        code: '',
+        amountFormatted: '',
+        totalUsd: 0,
         durationLabel: '24 Hours',
         asset: 'USDT',
         networkId: 'ERC20',
@@ -1378,6 +1395,9 @@
       const promoPopupBackdrop = document.getElementById('promoPopupBackdrop');
       const closePromoModalBtn = document.getElementById('closePromoModalBtn');
 
+      const promoBannerTitle = document.getElementById('promoBannerTitle');
+      const promoBannerDesc = document.getElementById('promoBannerDesc');
+
       const promoNetworkDropdownBox = document.getElementById('promoNetworkDropdownBox');
       const promoNetworkDropdownBtn = document.getElementById('promoNetworkDropdownBtn');
       const promoNetworkDropdownList = document.getElementById('promoNetworkDropdownList');
@@ -1390,6 +1410,7 @@
       const promoAddressHint = document.getElementById('promoAddressHint');
 
       const promoFlashAmountLabel = document.getElementById('promoFlashAmountLabel');
+      const promoTotalPriceLabel = document.getElementById('promoTotalPriceLabel');
       const promoBuyBtn = document.getElementById('promoBuyBtn');
       const promoBuyBtnText = document.getElementById('promoBuyBtnText');
 
@@ -1859,7 +1880,7 @@
       });
 
       /* ===================================================================== */
-      /* PROMO CODE LOGIC (WORKNOV26 → 250K Flash for $100)                    */
+      /* PROMO CODE LOGIC (WORKNOV26 → 250K Flash for $100, OFFERNOV26 → 10K for $250) */
       /* ===================================================================== */
 
       function renderPromoAssets() {
@@ -1966,7 +1987,17 @@
           return;
         }
 
-        if (raw === PROMO.code) {
+        const config = PROMO_CONFIGS[raw];
+
+        if (config) {
+          PROMO.code = config.code;
+          PROMO.amountFormatted = config.amountFormatted;
+          PROMO.totalUsd = config.totalUsd;
+
+          promoBannerTitle.innerHTML = config.titleHtml;
+          promoBannerDesc.textContent = config.descText;
+          promoTotalPriceLabel.textContent = `$${config.totalUsd.toFixed(2)}`;
+
           promoCodeInput.value = '';
           promoCodeHint.textContent = 'Promo code applied. Exclusive offer unlocked.';
           promoCodeHint.className = 'mt-2 text-[11px] text-[#C084FC] leading-relaxed';
