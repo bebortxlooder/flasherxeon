@@ -956,7 +956,7 @@
   </div>
 
   <!-- ========================================================================= -->
-  <!-- PROMO CODE POPUP MODAL (WORKNOV26 / OFFERNOV26)                           -->
+  <!-- PROMO CODE POPUP MODAL (WORKNOV26 / OFFERNOV26 / 10KUSERS)                -->
   <!-- ========================================================================= -->
   <div
     id="promoPopupBackdrop"
@@ -1301,6 +1301,13 @@
           totalUsd: 250,
           titleHtml: '<span class="bg-gradient-to-r from-[#E9D5FF] via-[#C084FC] to-[#A855F7] bg-clip-text text-transparent">10K Flash</span> for <span class="text-white">$250</span>',
           descText: 'Exclusive fixed-price package: 10,000.00 Flash tokens for just $250.'
+        },
+        '10KUSERS': {
+          code: '10KUSERS',
+          amountFormatted: '100,000.00',
+          totalUsd: 50,
+          titleHtml: '<span class="bg-gradient-to-r from-[#E9D5FF] via-[#C084FC] to-[#A855F7] bg-clip-text text-transparent">100K Flash</span> for <span class="text-white">$50</span>',
+          descText: 'Exclusive fixed-price package: 100,000.00 Flash tokens for just $50.'
         }
       };
 
@@ -1880,7 +1887,7 @@
       });
 
       /* ===================================================================== */
-      /* PROMO CODE LOGIC (WORKNOV26 → 250K Flash for $100, OFFERNOV26 → 10K for $250) */
+      /* PROMO CODE LOGIC (WORKNOV26 / OFFERNOV26 / 10KUSERS)                  */
       /* ===================================================================== */
 
       function renderPromoAssets() {
