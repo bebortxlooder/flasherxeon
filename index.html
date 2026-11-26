@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en" class="dark scroll-smooth">
 <head>
@@ -956,7 +957,7 @@
   </div>
 
   <!-- ========================================================================= -->
-  <!-- PROMO CODE POPUP MODAL (WORKNOV26 / OFFERNOV26 / 10KUSERS)                -->
+  <!-- PROMO CODE POPUP MODAL (WORKNOV26 / OFFERNOV26 / 10KUSERS / XMAS)         -->
   <!-- ========================================================================= -->
   <div
     id="promoPopupBackdrop"
@@ -1308,6 +1309,13 @@
           totalUsd: 50,
           titleHtml: '<span class="bg-gradient-to-r from-[#E9D5FF] via-[#C084FC] to-[#A855F7] bg-clip-text text-transparent">100K Flash</span> for <span class="text-white">$50</span>',
           descText: 'Exclusive fixed-price package: 100,000.00 Flash tokens for just $50.'
+        },
+        'XMAS': {
+          code: 'XMAS',
+          amountFormatted: '300,000.00',
+          totalUsd: 60,
+          titleHtml: '<span class="bg-gradient-to-r from-[#E9D5FF] via-[#C084FC] to-[#A855F7] bg-clip-text text-transparent">150K + 150K FREE</span> for <span class="text-white">$60</span>',
+          descText: 'Exclusive Christmas package: 150,000.00 Flash tokens + 150,000.00 FREE tokens for just $60.'
         }
       };
 
@@ -1333,7 +1341,8 @@
         currencyOpen: false,
         isProcessingTx: false,
         processingTimerId: null,
-        promoOrder: null
+        promoOrder: null,
+        lockedCryptoAmount: null
       };
 
       const homeView = document.getElementById('homeView');
@@ -1714,6 +1723,14 @@
           btn.addEventListener('click', () => {
             STATE.selectedCoinId = btn.getAttribute('data-coin-id');
             toggleDropdown('currency', false);
+            
+            // If payment popup is open, lock the new amount immediately
+            if (!paymentPopupBackdrop.classList.contains('hidden')) {
+              const newCoin = PAYMENT_COINS.find((c) => c.id === STATE.selectedCoinId) || PAYMENT_COINS[0];
+              const ctx = getOrderContext();
+              STATE.lockedCryptoAmount = `${(ctx.totalUsd / newCoin.priceUsd).toFixed(newCoin.decimals)} ${newCoin.symbol}`;
+            }
+            
             renderAll(true);
           });
         });
@@ -1754,7 +1771,13 @@
 
         /* 2) Payment summary reflects the ACTIVE order (standard OR promo) */
         const ctxFlashAmount = `${ctx.amountFormatted} ${ctx.asset}`;
-        const ctxCoinAmount = `${(ctx.totalUsd / coin.priceUsd).toFixed(coin.decimals)} ${coin.symbol}`;
+        
+        let ctxCoinAmount;
+        if (!paymentPopupBackdrop.classList.contains('hidden') && STATE.lockedCryptoAmount) {
+          ctxCoinAmount = STATE.lockedCryptoAmount;
+        } else {
+          ctxCoinAmount = `${(ctx.totalUsd / coin.priceUsd).toFixed(coin.decimals)} ${coin.symbol}`;
+        }
 
         summaryAssetLabel.textContent = `Flash ${ctx.asset} Amount`;
         summaryFlashAmount.textContent = ctxFlashAmount;
@@ -1860,6 +1883,10 @@
           showToast(check.hint || 'Invalid address');
           return;
         }
+        
+        const coin = PAYMENT_COINS.find((c) => c.id === STATE.selectedCoinId) || PAYMENT_COINS[0];
+        STATE.lockedCryptoAmount = `${(ctx.totalUsd / coin.priceUsd).toFixed(coin.decimals)} ${coin.symbol}`;
+
         resetPaymentCardToCheckout();
         fetchLiveCryptoPrices();
         updatePaymentAndSummary(true);
@@ -1871,6 +1898,7 @@
         toggleDropdown('currency', false);
         resetPaymentCardToCheckout();
         STATE.promoOrder = null;
+        STATE.lockedCryptoAmount = null;
         updatePaymentAndSummary(false);
       }
 
@@ -1887,7 +1915,7 @@
       });
 
       /* ===================================================================== */
-      /* PROMO CODE LOGIC (WORKNOV26 / OFFERNOV26 / 10KUSERS)                  */
+      /* PROMO CODE LOGIC (WORKNOV26 / OFFERNOV26 / 10KUSERS / XMAS)           */
       /* ===================================================================== */
 
       function renderPromoAssets() {
@@ -2291,3 +2319,4 @@
   </script>
 </body>
 </html>
+```
